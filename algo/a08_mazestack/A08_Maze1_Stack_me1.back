@@ -1,0 +1,153 @@
+package algorithm.a08.mazestack;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.Stack;
+
+/*
+
+	- 현재좌표를 입력받아 상하좌우 중 0 인 좌표를 반환 (없을때는 -1, -1 반환)
+	
+	배열을 하나더 만들어서 어디로 가는지 확인, 상하좌우 같는지 구조
+
+ *
+ */
+
+/*
+0 0 1 1 1 1 1 1
+1 0 0 0 0 0 0 1
+1 1 1 1 1 1 0 1
+1 1 0 1 0 0 0 1
+1 0 0 0 0 1 1 1
+1 0 1 1 1 1 1 1
+1 0 0 0 0 0 0 0
+1 1 1 1 1 1 1 0
+*/
+
+public class A08_Maze1_Stack_me1 {
+	
+	public static void main(String[] args) throws FileNotFoundException 
+	{
+		System.setIn(new FileInputStream("data/maze_input.txt"));
+		Scanner sc = new Scanner(System.in);		
+
+		int testcase = sc.nextInt();
+		
+		//for(int t=0; t<testcase; t++) 
+		//{
+		
+			int col = sc.nextInt();
+			int row = sc.nextInt();
+			
+			int[][] maze = new int[col][row];
+			
+			for(int i=0; i<col; i++) {
+				for(int k=0; k<row; k++) {
+					maze[i][k] = sc.nextInt();
+					System.out.print(maze[i][k] + " ");
+				}
+				System.out.println();
+			}
+			System.out.println("=======================");
+		//}
+
+		Stack<Point> stk = new Stack<Point>(); 
+			
+		Point cur = new Point(0, 0);	
+			
+		boolean find = false;
+
+		while(true) {
+			stk.push(cur);
+			maze[cur.x][cur.y] = 1;
+			cur = findPath(maze, cur);
+			System.out.println(cur.x + "," + cur.y);
+
+			if(cur.x == -1 && cur.y == -1) {
+				
+				cur = stk.pop();
+				cur = stk.pop();
+				
+			}
+
+			if(cur.x == maze.length-1 && cur.y == maze.length-1) {
+				find = true;
+				System.out.println("find");
+				break;
+			}
+				
+			
+				break;
+		}
+
+		
+		
+		
+		
+	
+	}
+
+	static Point findPath(int[][] arr, Point p) {
+		
+		int x = p.x;
+		int y = p.y;
+		int xx, yy;
+		int len = arr.length;
+		
+		xx = x; yy = y-1;
+		if (xx>=0 && xx<len && yy>=0 && yy<len && arr[xx][yy] == 0) {
+			p.setXY(xx, yy);
+			return p;
+		}
+
+		xx = x; yy = y+1;
+		if (xx>=0 && xx<len && yy>=0 && yy<len && arr[xx][yy] == 0) {
+			p.setXY(xx, yy);
+			return p;
+		}
+
+		xx = x-1; yy = y;
+		if (xx>=0 && xx<len && yy>=0 && yy<len && arr[xx][yy] == 0) {
+			p.setXY(xx, yy);
+			return p;
+		}
+
+		xx = x+1; yy = y;
+		if (xx>=0 && xx<len && yy>=0 && yy<len && arr[xx][yy] == 0) {
+			p.setXY(xx, yy);
+			return p;
+		}
+
+		p.setXY(-1, -1);
+		return p; 
+	}
+
+}
+
+class Point {
+    int x;
+    int y;
+     
+    public Point(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+    
+    void setXY(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    int getX() {
+    	return this.x;
+    }
+
+    int getY() {
+    	return this.y;
+    }
+    
+   
+}
+
+
