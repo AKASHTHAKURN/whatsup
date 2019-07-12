@@ -1,0 +1,49 @@
+﻿	
+	public List<String> getSequenceList_2(List<String> inputData) {
+		
+		List<String> li = new ArrayList<String>();
+
+		for(int i=0; i<inputData.size(); i++) {
+
+			boolean seq = true;
+			for(int k=0; k<inputData.get(i).length()-1; k++) {
+
+				char c1 = inputData.get(i).charAt(k);
+				char c2 = inputData.get(i).charAt(k+1);
+				
+				if (  Character.digit(c1, 10)+1  !=   Character.digit(c2, 10)  ) {
+					seq = false;
+					break;
+				}
+			}
+			
+			if (seq == true) {
+				li.add(inputData.get(i));
+			}
+		}
+		
+		return li;
+	}
+
+
+	public int getMaxNum(List<String> strList) {
+		
+		TreeSet<Integer> ts = new TreeSet<Integer>();
+		
+		for(String s : strList) {
+			ts.add(Integer.parseInt(s));
+		}
+		
+		String min = String.valueOf(ts.first());
+		String max = String.valueOf(ts.last());
+		
+		int num1 = Integer.parseInt(min+max);
+		int num2 = Integer.parseInt(max+min);
+		
+		if (num1 > num2)
+			return num1;
+		else
+			return num2;
+	}
+
+}

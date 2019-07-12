@@ -1,0 +1,93 @@
+package com.lgcns.tct.category;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Category {
+
+	static int count = 0;
+	
+	// 상위 카테고리를 검색하는 기능
+	public String getTopCategory(String[][] inputData, List<String> categories) {
+		
+		String st1 = findPath(categories.get(0), inputData);
+		String st2 = findPath(categories.get(1), inputData);
+		
+		StringBuilder sb1 = new StringBuilder(st1);
+		StringBuilder sb2 = new StringBuilder(st2);
+		sb1.reverse();
+		sb2.reverse();
+		
+		System.out.println(sb1 + " " + sb2);
+		
+		int i=0;
+		String result = "";
+		
+		while(true) {
+		
+			if(i>=sb1.length() || i>=sb2.length())
+				break;
+			
+			if (sb1.charAt(i) == sb2.charAt(i)) {
+				
+				result = sb1.substring(i, i+1);
+				i++;
+			} else {
+				break;
+			}
+		}	
+		
+		return result;
+	}
+	
+	public String findPath(String str, String[][] inputData) {
+		
+		String res = "";
+		boolean find = true;
+		
+		while(find == true) {
+			find = false;
+			for(int i=0; i<inputData.length; i++) {
+				
+				if(inputData[i][1].equals(str)) {
+					str = inputData[i][0];
+					res += str;
+					find = true;
+					break;
+				}
+			}
+		}	
+		
+		return res;
+	}
+	
+	// 하위 카테고리의 개수를 계산하는 기능
+	public int getNumberOfSubcategories(String[][] inputData, String categoryStr){
+
+		// 하나 상위 검색
+		String s = "";
+		for(int i=0; i<inputData.length; i++) {
+			if(inputData[i][1].equals(categoryStr)) {
+				s = inputData[i][0];
+				break;
+			}
+		}	
+		
+		// 하위 전체 갯수 찾기
+		count = 0;
+		findLower(s, inputData);
+		
+		return count;
+	}
+
+	public void findLower(String str, String[][] inputData) {
+		
+		for(int i=0; i<inputData.length; i++) {
+			if(inputData[i][0].equals(str)) {
+				count++;
+				System.out.println(inputData[i][1]);	
+				findLower(inputData[i][1], inputData);	// 재귀호출
+			}
+		}
+	}
+}

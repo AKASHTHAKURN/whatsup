@@ -1,0 +1,97 @@
+package com.lgcns.algorithm.searchword2;
+
+import java.util.*;
+
+
+public class SearchWord2_me1 {
+
+	public static void main(String[] args) {
+		String []sample = loadData();
+		
+		List<String> validWord = findValidWord(sample);
+		System.out.println(validWord);
+		
+		String searchWord = searchWord(validWord);
+		System.out.println(searchWord);
+	}
+	
+
+	
+	/*
+	 * 정규화를 사용한 replaceAll 사용 replaceAll("[0-9] "")  ---> 없는 문자로 바꾸어 버린다 
+	 */
+	
+	public static List<String> findValidWord(String []sample){
+		List<String> validList = null;
+		
+		validList = new ArrayList<String>();
+
+		/*
+		for (int i=0; i<sample.length; i++) {
+			validList.add(sample[i].replaceAll("[0-9]", "")) ;
+		}
+		*/
+		
+		for (int i=0; i<sample.length; i++) {
+			
+			String temp = "";
+			for (int k=0; k<sample[i].length(); k++) {
+				
+				char a = sample[i].charAt(k);
+				//System.out.println(a);
+				
+				
+				if(sample[i].charAt(k) < '0' || sample[i].charAt(k) > '9') {
+					//temp += Character.toString(a);
+					temp += a;
+					
+				}
+				else {
+					//temp += "";
+					//System.out.println(temp);
+				}
+				
+				
+			}
+			validList.add(temp);
+			
+		}	
+		
+
+		return validList;
+	}
+	
+	/*
+	 * TreeMap에 바로넣으면 중복제거되고 정렬된다
+	 */
+	public static String searchWord(List<String> validList) {
+		String searchWord = null;
+
+		Map<String, Integer> map = new TreeMap<String, Integer>();
+
+		for(String str : validList) {
+			
+			str = str.toUpperCase(); // 대문자로 변환
+			
+			if (map.containsKey(str)) {
+				map.put(str, map.get(str)+1);
+			} else {
+				map.put(str, 1);
+			}
+		}
+
+		Iterator<String> iteratorKey = map.keySet().iterator();
+		
+		int max = 0;
+		while(iteratorKey.hasNext()) {
+			if (max <= map.get(iteratorKey.next())) {
+				String str = iteratorKey.next();
+				max = map.get(str);
+				searchWord = str;
+			}
+		}
+		
+		return searchWord;
+	}
+
+}

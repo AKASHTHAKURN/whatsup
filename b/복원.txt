@@ -1,0 +1,58 @@
+﻿
+
+public class RRR {
+	
+	// 난 sb 사용해서 조건이면 sb.replace 방식 -> 이게 더 났다
+	public String getFirstRecovery(String inputData, String backup){
+
+		//String st = "";
+		//st += 'a';
+		//System.out.println(st);
+		
+		StringBuilder sb = new StringBuilder(inputData);
+		
+		for(int i=0; i<inputData.length(); i++) {
+			if (Character.isDigit(inputData.charAt(i)) && !Character.isDigit(backup.charAt(i))) {
+				
+				//sb.replace(i, i+1, backup.substring(i, i+1) ); // 한글자를 String 뽑아내기 위해 substring 사용
+
+				// or
+				
+				sb = sb.replace(i, i+1,backup.charAt(i)+"" ); // 한글자를 String 뽑아내기 위해 substring 사용
+			}
+		}
+
+		return sb.toString();
+	}
+
+	// 솔루션 -> String 에 char (+) 연산이 된다
+	// String str += 'a';	
+	// str = 'a' + "";	  // 대입시에는 +"" 해줘야 한다
+	public String getFirstRecovery_Solution(String inputData, String backup) {
+		
+		String firstRecovery = "";
+
+		for(int i = 0 ; i < inputData.length(); i++){
+		
+			char currentCh = inputData.charAt(i);
+			char backupCh = backup.charAt(i);
+			
+			if(Character.isDigit(currentCh) && !Character.isDigit(backupCh)) {
+				firstRecovery += backupCh;
+			} else {
+				firstRecovery += currentCh;
+			}
+		}
+		return firstRecovery;
+	}
+	
+	public String getSecondRecovery(String firstRecovery, String[] netWork){
+		
+		String backup = "";
+		
+		for(int i=0; i<netWork.length; i++)
+			backup += netWork[i];
+		
+		return getFirstRecovery(firstRecovery, backup);
+	}
+}

@@ -1,0 +1,48 @@
+﻿	public List<String> getValidWordList(List<String> inputData){
+		
+		List<String> out = new ArrayList<String>();
+		
+		for(String s : inputData) {
+			
+			boolean res = true;
+
+			for(int i=0; i<s.length(); i++) {
+				if(Character.isDigit(s.charAt(i))) {
+					res = false;
+					break;
+				}
+			}
+			
+			if(res)
+				out.add(s);
+		}
+		
+		return out;
+	}
+	
+	public  String getSearchWord_1(List<String>  validWordList){
+		
+		Map<String, Integer> tm = new HashMap<String, Integer>();
+
+		int max = 0;
+		String maxStr = "";
+		
+		for(String s : validWordList) {
+			
+			String str = s.toUpperCase();
+
+			if(tm.containsKey(str))
+				tm.put(str, tm.get(str) + 1);
+			else
+				tm.put(str, 1);
+			
+			if(max < tm.get(str)) {
+				max = tm.get(str);
+				maxStr = str;
+			}
+		}
+		
+		//for(String s : tm.keySet()) System.out.println(s + " " + tm.get(s));
+
+		return maxStr;
+	}

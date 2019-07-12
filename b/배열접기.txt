@@ -1,0 +1,97 @@
+﻿package com.lgcns.tct.folding;
+
+/*
+ * 배열크기가 홀수이면 뺄 필요없이 그냥 접으면 된다.
+ * 접을 때 가운데 행, 열은 연산에서 제외되어 뺀 것과 같은 효과 임
+ *  
+ */
+public class Folding {
+	
+	
+	public int[][] getIniArr(int[][] inputData) {
+
+		int[][] iniArr = new int[inputData.length][inputData[0].length];
+		
+		for(int i=0; i<inputData.length; i++) {
+			for(int k=0; k<inputData[i].length; k++) {
+			
+				if(inputData[i][k] > 5)
+					iniArr[i][k] = inputData[i][k] % 5;
+				else
+					iniArr[i][k] = inputData[i][k];
+			}	
+		}
+		 
+		return iniArr;
+	}
+	
+	public int[][] getFoldingArr(int[][] iniArr) {
+
+	//	int size = iniArr.length;
+		int [][] foldArr = fold(iniArr);
+		
+		//foldArr = fold(iniArr);
+		
+		return foldArr;		
+	}
+	
+	public int[][] fold(int [][] iniArr) {
+		int size = iniArr.length;
+		int [][] foldArr = new int[size][size];
+		
+		for(int i=0; i<size/2; i++) {
+			for(int k=0; k<size; k++) {
+				foldArr[i][k] = iniArr[i][k] + iniArr[size-1-i][k]; 
+			}
+		}
+		//disp(foldArr);
+		
+		for(int i=0; i<size/2; i++) {
+			for(int k=0; k<size/2; k++) {
+				foldArr[i][k] = foldArr[i][k] * foldArr[i][size-1-k]; 
+				foldArr[i][size-1-k] = 0; // clear
+			}
+		}
+		//disp(foldArr);
+		
+		int [][] foldArrRes = new int[size/2][size/2];
+		for(int i=0; i<size/2; i++)
+			for(int k=0; k<size/2; k++)
+				foldArrRes[i][k] = foldArr[i][k];			
+
+		return foldArrRes;
+	}
+	
+	public void disp(int [][] buf) {
+
+		for(int i=0; i<buf.length; i++) {
+			for(int k=0; k<buf.length; k++) {
+				System.out.printf("%2d ", buf[i][k]);
+			}
+			System.out.println();
+		}	
+		System.out.println();
+	}
+	
+	
+	
+	public int getFinalValue(int[][] foldingArr) {
+
+		int finalValue = 0;
+
+		int[][] inner = foldingArr;
+				
+		while(true) {
+
+			inner = fold(inner);
+			//System.out.println(inner.length);
+			
+			if(inner.length ==1) {
+				finalValue = inner[0][0];
+				break;
+			}
+		}
+		
+		return finalValue;		
+	}
+}

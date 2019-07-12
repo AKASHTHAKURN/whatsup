@@ -1,0 +1,72 @@
+﻿
+	public List<Character> getNameList(String inputData) {
+
+		List<Character> li = new ArrayList<Character>();
+		
+		Map<Character, Integer> m = new HashMap<Character, Integer>();
+		
+		int i=0;
+		
+		for(i=0; i<inputData.length(); i=i+2) {
+			
+			int value = Integer.parseInt(inputData.substring(i, i+1));
+			char key = inputData.charAt(i+1);
+			
+			if(m.containsKey(key)) {
+				m.put(key, m.get(key) + value);
+			} else {
+				m.put(key, value);
+			}
+		}
+
+        List<Map.Entry<Character, Integer>> list = new LinkedList<>(m.entrySet());
+        Collections.sort( list, (g1, g2) -> g2.getValue() - g1.getValue() ); // 정수형 정렬
+
+        int max = -1;
+        for(Entry<Character, Integer> s : list) {
+        	
+        	if(s.getKey() != 'G') {
+	        	if(max<0) {
+	        		max = s.getValue();
+	        		li.add(s.getKey());
+	        	}
+	        	else if(s.getValue() == max) {
+	        		li.add(s.getKey());
+	        	}
+        	}
+        	System.out.println(s.getKey() + ": " + s.getValue());
+        }
+		
+		return li;
+	}
+
+	public int getRatio(String inputData) {
+		List<Character> li = new ArrayList<Character>();
+		
+		Map<Character, Integer> m = new HashMap<Character, Integer>();
+		
+		int i=0;
+		
+		for(i=0; i<inputData.length(); i=i+2) {
+			
+			int value = Integer.parseInt(inputData.substring(i, i+1));
+			char key = inputData.charAt(i+1);
+			
+			if(m.containsKey(key)) {
+				m.put(key, m.get(key) + value);
+			} else {
+				m.put(key, value);
+			}
+		}
+
+		int sum = 0;
+		for(Character c : m.keySet()) {
+			sum += m.get(c);
+		}
+
+		int result = (sum - m.get('G')) * 100 / sum  ;
+		
+		return result;
+	}
+
+}
