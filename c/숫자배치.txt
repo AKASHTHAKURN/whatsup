@@ -1,0 +1,84 @@
+﻿	
+	public int getMaxNumber(String inputData) {
+		int result = -1;
+
+		int prev = 0;
+		int count = 0;
+		int max = 0;
+		
+		String[] sorted = inputData.split("#");
+		Arrays.sort(sorted);
+		
+		for (String input : sorted) {
+			int num = Integer.valueOf(input.substring(0, 1));
+			
+			if (prev != num) {
+				if (count > max) {
+					max = count;
+					result = prev;
+				}
+				prev = num;
+				count = 1;
+			}
+			else {
+				count++;
+			}
+		}
+		
+		if (count > max) {
+			max = count;
+			result = prev;
+		}
+
+		return result;
+	}
+
+	public List<List<Integer>> getReverseArrange(String inputData) {
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
+
+		//int max = getMaxNumber(inputData);
+		
+		String[] sorted = inputData.split("#");
+		Arrays.sort(sorted);
+		
+		int prev = 0;
+		List<Integer> nums = new ArrayList<>();	
+		
+		for (String input : sorted) {
+			int num1 = Integer.valueOf(input.substring(0, 1));
+			int num2 = Integer.valueOf(input.substring(1, 2));
+			
+			if (prev != num1) {
+				if (nums.size() > 0) {
+					result.add(nums);
+				}
+				
+				nums = new ArrayList<>();
+				nums.add(num1);
+				nums.add(num2);
+				
+				prev = num1;
+			}
+			else {
+				nums.add(num2);
+			}
+		}
+		
+		result.add(nums);
+		
+		int max = 0;
+		for (List<Integer> r : result) {
+			max = Math.max(max, r.size());
+		}
+		
+		for (List<Integer> r : result) {
+			while (r.size() < max) {
+				r.add(-1);
+			}
+			
+			Collections.reverse(r);
+		}
+		
+		return result;
+	}
+}

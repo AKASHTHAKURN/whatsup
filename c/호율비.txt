@@ -1,0 +1,36 @@
+﻿
+	
+	public List<Integer> getFuelEfficiency(List<List<Double>> inputData) {
+		List<Integer> result = new ArrayList<Integer>();
+
+		for (List<Double> input : inputData) {
+			if (input.get(0) < 1.0 || input.get(1) < 0.2) {
+				result.add(0);
+			}
+			else {
+				result.add((int)(input.get(0) / input.get(1)));
+			}
+			
+		}
+
+
+		return result;
+	}
+	
+	
+	public double getAvgFuelEfficiency(List<List<Double>> inputData) {
+		double result = 0;
+
+		double distance = 0;
+		double fuel = 0;
+		for (List<Double> input : inputData) {
+			distance += input.get(0);
+			fuel += input.get(1);
+		}
+		
+		result = (int)((distance / fuel + 0.05) * 10) / 10.0;
+
+
+		return result;
+	}
+

@@ -1,0 +1,79 @@
+﻿	
+	public List<List<Integer>> getGameNumber(List<List<Integer>> scanData) {
+		List<List<Integer>> result = new ArrayList<List<Integer>>();
+		
+		for (int i = 0; i < 5; i++) {
+			result.add(new ArrayList<Integer>());
+		}
+
+		for (int i = 0; i < scanData.size(); i++) {
+			
+			for (int j = 0; j < 35; j++) {
+				if (scanData.get(i).get(j) == 1) {
+					int game = j / 7;
+					int num = i * 7 + j % 7 + 1;
+
+					result.get(game).add(num);
+				}
+			}
+		}
+
+
+		return result;
+	}
+
+	public List<Integer> matchRank(List<List<Integer>> lottoGame, List<Integer> lottoNum, int bonusNum) {
+		List<Integer> result = new ArrayList<Integer>();
+		
+
+		for (List<Integer> game : lottoGame) {
+			int matchCount = 0;
+			boolean bonus = false;
+			boolean error = false;
+			
+			if (game.size() != 6) {
+				result.add(-1);
+				continue;
+			}
+			
+			for (Integer num : game) {
+				if (num > 45) {
+					error = true;
+					break;
+				}
+				
+				if (lottoNum.contains(num)) {
+					matchCount++;
+				}
+				
+				if (num == bonusNum)
+					bonus = true;
+			}
+			
+			if (error) {
+				result.add(-1);
+				continue;
+			}
+			
+			if (matchCount == 6) {
+				result.add(1);
+			}
+			else if (matchCount == 5 && bonus) {
+				result.add(2);
+			}
+			else if (matchCount == 5 && !bonus) {
+				result.add(3);
+			}
+			else if (matchCount == 4) {
+				result.add(4);
+			}
+			else if (matchCount == 3) {
+				result.add(5);
+			}
+			else {
+				result.add(0);
+			}
+		}
+
+		return result;
+	}
