@@ -19,7 +19,7 @@ public class Basic_InputOutput {
 	}
 
 	/*
-	 * ƒ‹º÷ ¿‘∑¬ πﬁ±‚
+	 * ÏΩòÏÜî ÏûÖÎ†• Î∞õÍ∏∞
 	 */
 	static void consoleInput() {
 
@@ -44,8 +44,8 @@ public class Basic_InputOutput {
 			System.out.println(line); 
 			
 			/*
-			 * ¡ŸπŸ≤ﬁ «“∂ß CR->LF º¯¿∏∑Œ "\r\n" √ﬂ∞°«ÿ¡ÿ¥Ÿ
-			 * ∏ﬁ∏¿Âø°º≠ «‡ πŸ≤Ÿ∏È ¿ßøÕ∞∞¿Ã ¿‘∑¬µ  0x0A 0x0D
+			 * Ï§ÑÎ∞îÍøà Ìï†Îïå CR->LF ÏàúÏúºÎ°ú "\r\n" Ï∂îÍ∞ÄÌï¥Ï§ÄÎã§
+			 * Î©îÎ™®Ïû•ÏóêÏÑú Ìñâ Î∞îÍæ∏Î©¥ ÏúÑÏôÄÍ∞ôÏù¥ ÏûÖÎ†•Îê® 0x0A 0x0D
 			 */
 			bufferedWriter.write(line + "\r\n");	
 		} 
@@ -60,22 +60,19 @@ public class Basic_InputOutput {
 	static void copyBinaryFile(String inputFile, String outputFile) throws IOException  {
 			
 		InputStream inputStream = new FileInputStream(inputFile);
-        OutputStream outputStream = new FileOutputStream(outputFile);  // FileOutputStream(outputFile, true) -> append 
+		OutputStream outputStream = new FileOutputStream(outputFile);  // FileOutputStream(outputFile, true) -> append 
 
-        // º≥¡§«— πˆ∆€ªÁ¿Ã¡Ó ∏∏≈≠ read
+		// ÏÑ§Ï†ïÌïú Î≤ÑÌçºÏÇ¨Ïù¥Ï¶à ÎßåÌÅº read
 		final int BUFFER_SIZE = 4096;
-        byte[] buffer = new byte[BUFFER_SIZE];
+		byte[] buffer = new byte[BUFFER_SIZE];
 
 		int readLen;
-        while ((readLen = inputStream.read(buffer)) != -1) {
-            
-        	outputStream.write(buffer, 0, readLen);
-            
-            System.out.println("readLen = " + readLen);
-        }
-            
-        inputStream.close();
-        outputStream.close();
-	}
+		while ((readLen = inputStream.read(buffer)) != -1) {
+			outputStream.write(buffer, 0, readLen);
+			System.out.println("readLen = " + readLen);
+		}
 
+		inputStream.close();
+		outputStream.close();
+	}
 }
