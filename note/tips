@@ -1,0 +1,14 @@
+- 실수형 정렬, 오름차순일 경우 g1, g2 반대로 입력
+Collections.sort(al, (g1, g2) -> Double.compare(g2.getSum(), g1.getSum()));  
+
+- 실수형 연산 (double, float)
+public Grade(String str, int k, int e, int m)
+{
+    strName = str;
+    Korean = k;
+    English = e;
+    Math = m;
+
+    // 실수형 연산은 double로 바꿔서 연산해야 한다
+    sum = ((double)k + (double)e + (double)m) / 3;
+}
