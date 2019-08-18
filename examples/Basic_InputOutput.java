@@ -32,7 +32,7 @@ public class Basic_InputOutput {
 	}
 	
 	/*
-	 * Test file read write
+	 * Text file read write
 	 */
 	static void copyTextFile(String inputFile, String outputFile) throws IOException  {
 	
