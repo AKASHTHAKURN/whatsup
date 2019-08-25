@@ -3,15 +3,20 @@ import java.util.ArrayList;
 public class StringMixing_sol {
 
 	public static void main(String[] args) {
-		String sample = loadData();
+
+		String sample = "HHAAAATTCGVVTXXY";
+		//String sample = loadData();
 
 		String tmp1 = "";
 		String tmp2 = "";
 		String result = "";
-		
-//		String sample = "HHAAAATTCGVVTXXY";
 
 		ArrayList<String> s1 = new ArrayList<>();
+
+		/*
+		 * ì²«ê¸€ì str ì— ì¶”ê°€í•´ë†“ê³  ë‹¤ìŒê¸€ì ë¹„êµ
+		 * ê°™ì€ë©´ ì¶”ê°€, ë‹¤ë¥´ë©´ str ë¦¬ìŠ¤íŠ¸ì— ë„£ê³  ë‹¤ë¥¸ê¸€ìë¥¼ strì— ë„£ëŠ”ë‹¤
+		 */
 
 		String str = "";
 		str += sample.charAt(0);
@@ -19,12 +24,12 @@ public class StringMixing_sol {
 		for (int i=1; i<sample.length();i++) {			
 		
 		  if (sample.charAt(i) != sample.charAt(i-1)) {
-		    s1.add(str);
-		    str = sample.charAt(i)+"";
+		    
+			  s1.add(str);
+			  str = sample.charAt(i)+"";
 		  
-		  
-			if (i == sample.length()-1)
-			   s1.add(str);
+			  if (i == sample.length()-1)
+				  s1.add(str);
 			
 		  }else {
 			  str += sample.charAt(i);
@@ -32,70 +37,84 @@ public class StringMixing_sol {
 		  
 		}	
 		
-		
 		System.out.println(s1);
 		
 		for (String word : s1) {
-		  if(word.length()%2 == 0) {
-		    tmp1 += word.substring(0,word.length()/2);
-		    tmp2 = word.substring(word.length()/2) + tmp2;
-		    System.out.println("tmp1" + tmp1);
-		    System.out.println("tmp2" + tmp2);
+
+			if(word.length()%2 == 0) {
 		    
-		  }else {
-			tmp1 += word;
-		  }
+				tmp1 += word.substring(0,word.length()/2);
+		    
+				tmp2 = word.substring(word.length()/2) + tmp2;
+		    
+				System.out.println("tmp1 : " + tmp1);
+				System.out.println("tmp2 : " + tmp2);
+		    
+			} else {
+		    	
+		    	tmp1 += word;
+		    }
 		}
+		
 		result = tmp1 + tmp2;
 		
 		System.out.println(result); 		
-		
 	}
 	
 	
 	public static String loadData() {
-//		»ùÇÃ1
+//		ìƒ˜í”Œ1
 		String sample = "HHAAAATTCGVVTXXY";
 		
-//		»ùÇÃ2
+//		ìƒ˜í”Œ2
 //		String sample = "CCCCTTCGVVTXXY";
 		
-//		»ùÇÃ3
+//		ìƒ˜í”Œ3
 //		String sample ="BBBBAAACFFTTY";
 		
-//		»ùÇÃ4
+//		ìƒ˜í”Œ4
 //		String sample = "BBBBAAACFFTTYY";
 		
 		return sample;
 	}
 
 }
-
-
-
-
+/* result
+[HH, AAAA, TT, C, G, VV, T, XX, Y]
+tmp1 : H
+tmp2 : H
+tmp1 : HAA
+tmp2 : AAH
+tmp1 : HAAT
+tmp2 : TAAH
+tmp1 : HAATCGV
+tmp2 : VTAAH
+tmp1 : HAATCGVTX
+tmp2 : XVTAAH
+HAATCGVTXYXVTAAH
+*/
 
 //# sample = "CCCCTTCGVVTXXY"
-//# ÁÖ¾îÁø ¹®ÀÚ¿­¿¡¼­ ¼ø¼­´ë·Î ³ª¿­µÈ ¹®ÀÚ¿­ÀÇ ¼ö°¡ Â¦¼öÀÌ¸é Àı¹İÀ»
-//# µÚ·Î º¸³»·Á°í ÇÑ´Ù. µÚ·Î º¸³»Áö´Â ¹®ÀÚ¿­ÀÌ ¿©·¯¹ø ¹ß»ıÇÏ¸é
-//# ±âÁ¸¿¡ µÚ·Î ¿Å°ÜÁø ¹®ÀÚ¿­ÀÇ ¾Õ ÂÊÀ¸·Î ³ª¿­ÇÒ °ÍÀÌ´Ù.
+//# ì£¼ì–´ì§„ ë¬¸ìì—´ì—ì„œ ìˆœì„œëŒ€ë¡œ ë‚˜ì—´ëœ ë¬¸ìì—´ì˜ ìˆ˜ê°€ ì§ìˆ˜ì´ë©´ ì ˆë°˜ì„
+//# ë’¤ë¡œ ë³´ë‚´ë ¤ê³  í•œë‹¤. ë’¤ë¡œ ë³´ë‚´ì§€ëŠ” ë¬¸ìì—´ì´ ì—¬ëŸ¬ë²ˆ ë°œìƒí•˜ë©´
+//# ê¸°ì¡´ì— ë’¤ë¡œ ì˜®ê²¨ì§„ ë¬¸ìì—´ì˜ ì• ìª½ìœ¼ë¡œ ë‚˜ì—´í•  ê²ƒì´ë‹¤.
 //# "CCCCTTCGVVTXXY"
 //# "CCTTCGVVTXXYCC"
 //# "CCTCGVVTXXYTCC"
 //# "CCTCGVTXXYVTCC"
 //# "CCTCGVTXYXVTCC"
-//# ¿Í °°Àº Çü½ÄÀ¸·Î »õ·Ó°Ô µÚ·Î ¿Å°ÜÁö´Â ¹®ÀÚ¿­Àº ±âÁ¸°ÍÀÇ ¾ÕÀ¸·Î ºÙ¿©Áø´Ù.
-//ÀÔ·Â »ùÇÃ
-//»ùÇÃ1
+//# ì™€ ê°™ì€ í˜•ì‹ìœ¼ë¡œ ìƒˆë¡­ê²Œ ë’¤ë¡œ ì˜®ê²¨ì§€ëŠ” ë¬¸ìì—´ì€ ê¸°ì¡´ê²ƒì˜ ì•ìœ¼ë¡œ ë¶™ì—¬ì§„ë‹¤.
+//ì…ë ¥ ìƒ˜í”Œ
+//ìƒ˜í”Œ1
 //String sample = "HHAAAATTCGVVTXXY";
-//»ùÇÃ2
+//ìƒ˜í”Œ2
 //String sample = "CCCCTTCGVVTXXY";
-//»ùÇÃ3
+//ìƒ˜í”Œ3
 //String sample ="BBBBAAACFFTTY";
-//»ùÇÃ4
+//ìƒ˜í”Œ4
 //Stringsample = "BBBBAAACFFTTYY";
 
-//# Ãâ·Â °á°ú
+//# ì¶œë ¥ ê²°ê³¼
 //# HAATCGVTXYXVTAAH
 //# CCTCGVTXYXVTCC
 //# BBAAACFTYTFBB
