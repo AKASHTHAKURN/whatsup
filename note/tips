@@ -11,9 +11,21 @@ public Grade(String str, int k, int e, int m)
 
     // 실수형 연산은 double로 바꿔서 연산해야 한다
     sum = ((double)k + (double)e + (double)m) / 3;
-    // 소수점 2자리 반올림 1.66666 -> 1.67
+
+    // %.2f => 소수점 2자리 반올림 1.66666 -> 1.67
     System.out.printf("%.2f", sum);
 }
+
+- 소수점 자리수 제한을 위해 printf 사용, float 연산 오류도 없다 (반올림 된다)
+			// %s      : ASDF
+			// %10s    : _____ASDF
+			// %-10s   : ASDF_____
+			// %10.3s  : ______ASD
+			// %-10.3s : ASD______
+			// %05d    : 00123
+			// %-5d    : 123__
+			// %-10.3f : 123.457__
+			// 10.3E   : _1235E+02
 
 - 이클립스 class Generate Getters and Setters
 해당 java 파일에서 마우스 오른쪽 버튼을 클릭해서 [Source] -> [Generate Getters and Setters] 를 클릭 
