@@ -14,3 +14,13 @@ public Grade(String str, int k, int e, int m)
     // 소수점 2자리 반올림 1.66666 -> 1.67
     System.out.printf("%.2f", sum);
 }
+
+- 이클립스 class Generate Getters and Setters
+해당 java 파일에서 마우스 오른쪽 버튼을 클릭해서 [Source] -> [Generate Getters and Setters] 를 클릭 
+class Grade
+{
+    private String strName;
+    private int Korean;
+    private int English;
+    private int Math; 
+}    
