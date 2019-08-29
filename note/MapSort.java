@@ -19,6 +19,7 @@ public class MapSort {
 		MapSortObject();
 	}
 
+	// TreeMap을 사용한 key 정렬
 	public static void MapSortKey() {
 		
 //		TreeMap<String, String> tm = new TreeMap<>(); 
@@ -34,6 +35,7 @@ public class MapSort {
 			System.out.println(s + " " +  tm.get(s));
 	}
 	
+	// key & value 정렬
 	public static void MapSortValue() {
 		
 		Map<String, String> m = new HashMap<>(); 
@@ -46,6 +48,10 @@ public class MapSort {
 
 		List<Map.Entry<String, String>> list = new ArrayList<>(m.entrySet());
 		
+		// key 정렬
+		Collections.sort(list, (g1, g2) -> g1.getKey().compareTo(g2.getKey()));
+		
+		// value 정렬
 		Collections.sort(list, (g1, g2) -> g2.getValue().compareTo(g1.getValue()));
 //		Collections.sort(list, (g1, g2) -> g2.getValue() - g1.getValue());
 		
