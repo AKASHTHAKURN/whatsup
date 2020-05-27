@@ -10,8 +10,7 @@ import java.util.Map.Entry;
 import collections.sort.Grade;
 
 /*
- * value ¿¡ °´Ã¼¸¦ ³Ö°í ±× Áß ÇÑ ¿ä¼Ò·Î Á¤·Ä ---> ½ÇÆĞ
- * ³ªÁß¿¡ ´Ù½Ã ÇÏÀÚ
+ * value ì— classë¥¼ ë„£ê³  ê·¸ ì¤‘ í•œ ìš”ì†Œë¡œ ìˆœ/ì—­ì •ë ¬
  */
 
 public class HashMap_5_SortValue_Class {
@@ -35,13 +34,13 @@ public class HashMap_5_SortValue_Class {
 			System.out.println( key + " : " + map.get( key ) ); 
 		}
 	    
-	    System.out.println("---------sort ÈÄ------------");
+	    	System.out.println("---------sort í›„------------");
 
-	    List<Map.Entry<Integer, ScoreMap>> list = new ArrayList<Map.Entry<Integer, ScoreMap>>(map.entrySet());
+	    	List<Map.Entry<Integer, ScoreMap>> list = new ArrayList<Map.Entry<Integer, ScoreMap>>(map.entrySet());
 		
-	    // ¹®ÀÚ¿­ Á¤·Ä
+	    	// ë¬¸ìì—´ ì •ë ¬
 		Collections.sort( list, (g1, g2) -> g1.getValue().getName().compareTo( g2.getValue().getName() ) );
-		// ¼ıÀÚ Á¤·Ä
+		// ìˆ«ì ì •ë ¬
 		Collections.sort( list, (g1, g2) -> g2.getValue().getKor() -  g1.getValue().getKor() );
 		
 		for(Entry<Integer, ScoreMap> n : list) {
