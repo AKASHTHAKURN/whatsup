@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-/* HashMap 출력 시 무조건 foreach 사용해라 */
+/* HashMap 출력 시 무조건 foreach, keyset() 사용해라 */
 
 public class HashMap_1_Basic {
 
