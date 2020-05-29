@@ -5,40 +5,42 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+/* HashMap ì¶œë ¥ ì‹œ ë¬´ì¡°ê±´ foreach ì‚¬ìš©í•´ë¼ */
+
 public class HashMap_1_Basic {
 
 	public static void main(String[] args) {
 
-		// ¸Ê µ¥ÀÌÅÍ Á¤·ÄÀº ¾î¶»°Ô ÇÏ³ª
+		// ë§µ ë°ì´í„° ì •ë ¬ì€ ì–´ë–»ê²Œ í•˜ë‚˜
 
 		HashMap<String, String> m = new HashMap<>(); 
 
-		// Ãß°¡
+		// ì¶”ê°€
 		m.put("kit@gmail.com", "Michael Knight"); 
 		m.put("knife@gmail.com", "Mac Guyver"); 
 		m.put("superman@gmail.com", "Clark Kent"); 
 		m.put("batman@gmail.com", "Bruce Wayne"); 
 		m.put("ironman@gmail.com", "Tony Stark"); 
 		
-		// »èÁ¦
+		// ì‚­ì œ
 		m.remove("superman@gmail.com"); 
 		
-		// º¯°æ
+		// ë³€ê²½
 		m.replace("batman@gmail.com", "Robin"); 
 
-		// key ÀÖ´ÂÁö Ã¼Å©ÇÏ°í value ²¨³»¼­ ¾÷µ¥ÀÌÆ®
+		// key ìˆëŠ”ì§€ ì²´í¬í•˜ê³  value êº¼ë‚´ì„œ ì—…ë°ì´íŠ¸
 		String keyy = "knife@gmail.com";
 		if (m.containsKey(keyy)) {
 			m.put(keyy, m.get(keyy) + " is my best actor");
 		}
 		
-		// foreach Ãâ·Â -> Á¦ÀÏ °£ÆíÇÑ´Ù
+		// ===== foreach ì¶œë ¥ -> ì œì¼ ê°„í¸í•œë‹¤
 		for ( String key : m.keySet() ) { 
 			System.out.println( key + " : " + m.get( key ) ); 
 		}
 		System.out.println(); 
 
-		// ¸®½ºÆ® Ãâ·Â -> ¾î·Æ´Ù
+		// ë¦¬ìŠ¤íŠ¸ ì¶œë ¥ -> ì–´ë µë‹¤
 		iteratorUsingForEach(m);
 		iteratorUsingIterator(m);
 	}
@@ -50,7 +52,7 @@ public class HashMap_1_Basic {
 		System.out.println(); 
 	}
     
-	// ¾î·Æ´Ù, key ¿Í value µ¥ÀÌÅÍÇüÀÌ ¹Ù²ğ°æ¿ì Ãß°¡·Î ¼±¾ğÇØ Áà¾ß ÇÑ´Ù
+	// ì–´ë µë‹¤, key ì™€ value ë°ì´í„°í˜•ì´ ë°”ë€”ê²½ìš° ì¶”ê°€ë¡œ ì„ ì–¸í•´ ì¤˜ì•¼ í•œë‹¤
 	static void iteratorUsingForEach(HashMap<String, String> m){
         Set<Map.Entry<String, String>> entries = m.entrySet();
         for (Map.Entry<String, String> entry : entries) {
