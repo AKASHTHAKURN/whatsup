@@ -2,20 +2,20 @@ package ssp.datastructure;
 
 import java.util.*; 
 
-// HashMap Key Á¤·Ä(TreeMap)
-// TreeMap »ç¿ëÇÏ¿© Á¤·Ä, ¿ªÁ¤·Ä
-// Á¤·Ä ÈÄ ¹İµå½Ã iterator·Î Ãâ·ÂÇØ¾ß ÇÑ´Ù
+// HashMap Key ì •ë ¬
+// TreeMap ì‚¬ìš©í•˜ì—¬ ì •ë ¬, ì—­ì •ë ¬
+// * ì •ë ¬ í›„ ë°˜ë“œì‹œ iteratorë¡œ ì¶œë ¥í•´ì•¼ í•œë‹¤, HashMapì€ foreach ì¶œë ¥ê°€ëŠ¥
 
 
 public class HashMap_2_SortKeyUsingTreeMap {
 	
 	public static void main(String[] args) { 
 		HashMap<String, String> ht = new HashMap<String, String>(); 
-		ht.put("Banana", "¹Ù³ª³ª"); 
-		ht.put("Orange", "¿À·»Áö"); 
-		ht.put("Grapes", "Æ÷µµ"); 
-		ht.put("Strawberry", "µş±â"); 
-		ht.put("Apple", "»ç°ú"); 
+		ht.put("Banana", "ë°”ë‚˜ë‚˜"); 
+		ht.put("Orange", "ì˜¤ë Œì§€"); 
+		ht.put("Grapes", "í¬ë„"); 
+		ht.put("Strawberry", "ë”¸ê¸°"); 
+		ht.put("Apple", "ì‚¬ê³¼"); 
 
 		System.out.println("=== before sort ===");
 		for ( String key : ht.keySet() ) { 
@@ -23,35 +23,36 @@ public class HashMap_2_SortKeyUsingTreeMap {
 		}
 		System.out.println("=== after sort ===");
 		//==========================================================================================//
-		// ¹®ÀÚ¿­ Á¤·Ä
+		// ë¬¸ìì—´ ì •ë ¬
 		
 		TreeMap<String,String> tm = new TreeMap<String,String>(ht); 
-		//Iterator<String> keyiterator = tm.keySet( ).iterator( ); 			// Å°°ª ¿À¸§Â÷¼ø Á¤·Ä 
-		Iterator<String> keyiterator = tm.descendingKeySet().iterator(); 	// Å°°ª ³»¸²Â÷¼ø Á¤·Ä 
+
+		Iterator<String> keyiterator = tm.keySet( ).iterator( ); 		// í‚¤ê°’ ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬ 
+	//	Iterator<String> keyiterator = tm.descendingKeySet().iterator(); 	// í‚¤ê°’ ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬ 
+
 		while(keyiterator.hasNext()) {
 			  String key = keyiterator.next();
 			  System.out.println(key+","+tm.get(key));
 		}
 
 		HashMap<Integer, String> hm = new HashMap<>(); 
-		hm.put(3, "¹Ù³ª³ª"); 
-		hm.put(100, "¿À·»Áö"); 
-		hm.put(5, "Æ÷µµ"); 
-		hm.put(23, "Æ÷µµ"); 
+		hm.put(3, "ë°”ë‚˜ë‚˜"); 
+		hm.put(100, "ì˜¤ë Œì§€"); 
+		hm.put(5, "í¬ë„"); 
+		hm.put(23, "í¬ë„"); 
 		//==========================================================================================//
-		// Á¤¼öÇü Á¤·Ä
+		// ì •ìˆ˜í˜• ì •ë ¬
 
 		TreeMap<Integer,String> tm2 = new TreeMap<>(hm);
-		Iterator<Integer> keyit = tm2.keySet( ).iterator( ); 
-		//Iterator<Integer> keyit = tm2.descendingKeySet().iterator(); 	// Å°°ª ³»¸²Â÷¼ø Á¤·Ä 
+		
+		Iterator<Integer> keyit = tm2.keySet( ).iterator( ); 		// ì˜¤ë¦„ì°¨ìˆœ
+	//	Iterator<Integer> keyit = tm2.descendingKeySet().iterator(); 	// í‚¤ê°’ ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬ 
+		
 		while(keyit.hasNext()) {
 			  int key = keyit.next();
 			  System.out.println(key+","+tm2.get(key));
 		}
-
-		
 	} 
-
 }
 
 
