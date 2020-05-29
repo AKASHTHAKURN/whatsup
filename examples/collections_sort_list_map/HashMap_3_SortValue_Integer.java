@@ -1,46 +1,61 @@
-package ssp.datastructure;
+/* ê°„ë‹¨í•œ ë°©ë²•ìœ¼ë¡œ ìˆ˜ì • */
 
 import java.util.*;
+import java.util.Map.Entry;
 
 public class HashMap_3_SortValue_Integer {
 	public static void main(String[] args) {
-	    Map<String,Integer> map = new HashMap<String,Integer>();
 
-	    map.put("a", 1023);
-	    map.put("b", 2);
-	    map.put("c", 100);
-	    map.put("d", 6);
-	    map.put("e", 10);
-	    map.put("f", 5);
+		Map<String, Integer> map = new HashMap<String, Integer>();
 
-	    
-	    System.out.println("------------sort Àü -------------");
-	    System.out.println(map);
-	     
-	    Iterator<String> it = sortByValue(map).iterator();
-	     
-	     
-	    System.out.println("---------sort ÈÄ------------");
-	    while(it.hasNext()){
-	        String temp = (String) it.next();
-	        System.out.println(temp + " = " + map.get(temp));
-	    }
-	    //System.out.println(map);
+		map.put("a", 1023);
+		map.put("b", 2);
+		map.put("c", 100);
+		map.put("d", 6);
+		map.put("e", 10);
+		map.put("f", 5);
+
+		System.out.println("------------sort ì „ -------------");
+		System.out.println(map);
+
+		// @ ëŒë‹¤ ì‚¬ìš© -> ê°„ë‹¨í•¨
+		List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(map.entrySet());
+
+		Collections.sort(list, (g1, g2) -> g2.getValue() - g1.getValue());
+
+		for (Entry<String, Integer> n : list) {
+			System.out.printf("%s %05d\n", n.getKey(), n.getValue());
+		}
+
+		System.out.println("\n---------sort í›„------------");
+		System.out.println(map);
+
+		// ì¼ë°˜ì ì¸ ë°©ë²• -> ì–´ë µë‹¤
+		Iterator<String> it = sortByValue(map).iterator();
+
+		while (it.hasNext()) {
+			String temp = (String) it.next();
+			System.out.println(temp + " = " + map.get(temp));
+		}
 	}
 
-	// ArrayList·Î ³Ñ°Ü¼­ Comparator »ç¿ëÇÏ¿© Á¤·Ä
-	public static List sortByValue(final Map map){
-	    List<String> list = new ArrayList<>();
-	    list.addAll(map.keySet());
-	     
-	    Collections.sort(list,new Comparator<Object>(){
-	        public int compare(Object o1,Object o2){
-	            Object v1 = map.get(o1);
-	            Object v2 = map.get(o2);
-	            return ((Comparable) v2).compareTo(v1);		// ¼ø¼­ ¹Ù²Ù¸é ¿ª¼ø
-	        }
-	    });
-	    //Collections.reverse(list); // ÁÖ¼®½Ã ¿À¸§Â÷¼ø, ¾øÀ¸¸é ³»¸²Â÷¼ø
-	    return list;
+	// ArrayListë¡œ ë„˜ê²¨ì„œ Comparator ì‚¬ìš©í•˜ì—¬ ì •ë ¬
+	public static List sortByValue(final Map map) {
+
+		List<String> list = new ArrayList<>();
+
+		list.addAll(map.keySet());
+
+		Collections.sort(list, new Comparator<Object>() {
+			public int compare(Object o1, Object o2) {
+				Object v1 = map.get(o1);
+				Object v2 = map.get(o2);
+				return ((Comparable) v2).compareTo(v1); // ìˆœì„œ ë°”ê¾¸ë©´ ì—­ìˆœ
+			}
+		});
+
+		// Collections.reverse(list); // ì£¼ì„ì‹œ ì˜¤ë¦„ì°¨ìˆœ, ì—†ìœ¼ë©´ ë‚´ë¦¼ì°¨ìˆœ
+
+		return list;
 	}
 }
