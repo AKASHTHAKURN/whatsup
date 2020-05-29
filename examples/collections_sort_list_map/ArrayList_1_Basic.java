@@ -5,12 +5,8 @@ import java.util.Collections;
 import java.util.Iterator;
 
 
-/*
- * ¸®½ºÆ®¿¡ °´Ã¼¸¦ µ¥ÀÌÅÍ·Î Ãß°¡
- */
-
-//ArrayList<Score> al = new ArrayList<Score>(); 
-//al.add(new Score("Tommy Lee",  100, 95, 90));
+// ë¦¬ìŠ¤íŠ¸ ì •ë ¬
+// ëŒë‹¤ : ìˆ«ì ì •ë ¬ì€ ë¹¼ê¸°, ë¬¸ìì—´ ì •ì—´ì€ compareTo ì‚¬ìš©
 
 
 public class ArrayList_1_Basic {
@@ -19,43 +15,74 @@ public class ArrayList_1_Basic {
 
 		ArrayList<String> al = new ArrayList<String>(); 
 
-		al.add("Michael Knight"); 
+		al.add("Zakk Knight"); 
 		al.add("Mac Guyver"); 
 		al.add("Clark Kent"); 
 		al.add("Bruce Wayne"); 
 		al.add("Tony Stark");
 		
-		/*
-		 *  Á¤·Ä (¶÷´Ù½Ä »ç¿ë) ¿À¸§Â÷¼ø
-		 */
-		Collections.sort(al, (g1, g2) -> g1.compareTo(g2));	// *-1 ÇÏ¸é ³»¸²Â÷¼ø 
+		// ì˜¤ë¦„ì°¨ìˆœ
+		Collections.sort(al);
 		
-		// Ãâ·Â¹æ½Ä 1
+		// ë‚´ë¦¼ì°¨ìˆœ *sort() ë¨¼ì € ì‹¤í–‰í•˜ê³  reverse()
+		Collections.reverse(al);
+
+		// ëŒë‹¤ ì˜¤ë¦„ì°¨ìˆœ
+		Collections.sort(al, (g1, g2) -> g1.compareTo(g2));	
+
+		// ëŒë‹¤ ë‚´ë¦¼ì°¨ìˆœ
+		Collections.sort(al, (g1, g2) -> g1.compareTo(g2) * -1);
+
+		
+		// ì¶œë ¥ index
+		for (int i=0; i<al.size(); i++) { 
+			System.out.println(al.get(i)); 
+		} 
+		System.out.println(); 
+
+		// ì¶œë ¥ foreach
 		for (String name : al) { 
 			System.out.println(name); 
 		} 
 		System.out.println(); 
 		
+		// remove 
 		al.remove("Clark Kent"); 
 		
-		// Ãâ·Â¹æ½Ä 2
-		for (int i=0; i<al.size(); i++) { 
-			System.out.println(al.get(i)); 
-		} 
-		System.out.println(); 
-		
+		// remove index
 		al.remove(al.get(0)); 
 		
-		// ÁöÁ¤µÈ ÀÎµ¦½º ³»¿ëÀ» º¯°æ
+		// ì§€ì •ëœ ì¸ë±ìŠ¤ ë‚´ìš©ì„ ë³€ê²½
 		al.set(0, "Taejin Kim");
 		
-		// Ãâ·Â¹æ½Ä 3
+		// ì¶œë ¥ iterator
 		Iterator<String> itr = al.iterator(); 
 		while (itr.hasNext()) { 
 			System.out.println(itr.next());
 		}
-		System.out.println(); 
 
+		/* ìˆ«ì ì •ë ¬ */
+		ArrayList<Integer> li = new ArrayList<Integer>(); 
+
+		li.add(111); 
+		li.add(2121); 
+		li.add(311); 
+		li.add(20); 
+		li.add(121); 
+		
+		Collections.sort(li);
+
+		// ëŒë‹¤ ì˜¤ë¦„ì°¨ìˆœ
+		Collections.sort(li, (g1, g2) -> g1 -g2);	
+
+		// ëŒë‹¤ ë‚´ë¦¼ì°¨ìˆœ
+		Collections.sort(li, (g1, g2) -> g2 - g1);
+		
+		// ì¶œë ¥ foreach
+		for (Integer n : li) { 
+			System.out.println(n); 
+		} 
+		
 	}
 
 }
