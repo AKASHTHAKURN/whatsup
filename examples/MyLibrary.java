@@ -95,4 +95,27 @@ public class testLib {
 	public static int convStringInt(String str) {
 		return (Integer.valueOf(str));
 	}
+
+	/*
+	 * 사이니지에 정보를 출력, list 정보를 sinage.exe 에 스트림 출력 하는 
+	 */
+	public static void sendSignage(ArrayList<String> list) {
+		
+		Process process = null;
+		String[] cmd = new String[] {"SIGNAGE"};
+
+		try {
+			process = new ProcessBuilder(cmd).start();
+			
+			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()) ); // signage.exe 에 스트림출력 하는 설정
+			
+			for(int i=0; i<list.size(); i++) {
+				bufferedWriter.write(list.get(i) + "\r\n");	
+			}
+			
+			bufferedWriter.close();
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+	}	
 }
