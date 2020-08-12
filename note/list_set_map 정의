@@ -1,3 +1,14 @@
 List : 순서있음, 데이터 중복 허용
 Set : 순서없음, 데이터 중복 불가
 Map : key, value 저장, Key 중복불가, value 중복 허용
+
+Set
+- HashSet 중복불허, 입력순서 보장하지 않음
+- TreeSet 중복불허, 오름차순 정렬
+- LinkedHashSet 중복불허, 입력된 순서를 보장
+
+Map : [k,v] 키값 중복불허
+
+- HashMap 입력순서 보장안함
+- TreeMap 키값으로 정렬
+- LinkedHashMap 입력순서 보장
