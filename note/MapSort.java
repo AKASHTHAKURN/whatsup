@@ -49,11 +49,12 @@ public class MapSort {
 
 		List<Map.Entry<String, String>> list = new ArrayList<>(m.entrySet());
 		
-		// key 정렬
-		Collections.sort(list, (g1, g2) -> g1.getKey().compareTo(g2.getKey()));
+		// key 정렬, 대소문자 무시
+		Collections.sort(list, (g1, g2) -> g1.getKey().compareToIgnoreCase(g2.getKey()));
 		
-		// value 정렬
+		// value 문자 정렬
 		Collections.sort(list, (g1, g2) -> g2.getValue().compareTo(g1.getValue()));
+		// value 정수 
 //		Collections.sort(list, (g1, g2) -> g2.getValue() - g1.getValue());
 		
 		for(Entry<String, String> s :list)
