@@ -8,8 +8,13 @@ public class BigDecimal_Exam {
 
 	public static void main(String[] args) {
 
+		// float  32bit, f 붙여야 한다
+		// double 64bit, f 붙이면 안된다
+		
+		float f1 = 1.3f;
+		float f2 = 0.3f;
+		
 		double num1 = 1.3; 
-
 		double num2 = 0.3; 
 		
 		// 스트링으로 변환해서 대입해야 한다
