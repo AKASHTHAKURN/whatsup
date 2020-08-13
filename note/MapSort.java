@@ -21,10 +21,11 @@ public class MapSort {
 
 	// TreeMap을 사용한 key 정렬
 	public static void MapSortKey() {
-		
-//		TreeMap<String, String> tm = new TreeMap<>(); 
+			
+	 	//TreeMap<String, String> tm = new TreeMap<>(hm); 
 		TreeMap<String, String> tm = new TreeMap<>(Collections.reverseOrder()); 
-
+		//tm.putAll(hm); // hashmap을 넣을 때	
+		
 		tm.put("aaa", 	"ZAKK"); 
 		tm.put("bbb", 	"ABBA"); 
 		tm.put("ccc",    "COX"); 
