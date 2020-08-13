@@ -5,7 +5,7 @@ public class ThreadEx03_SyncMutex_Withdraw_FIX {
 
 	public static void main(String[] args) throws InterruptedException {
 		//
-		// °°Àº µ¿ÀÛÀ» ÇÏ´Â ½º·¹µå »ç¿ë ½Ã Thread(Runnable arg0) ÇüÅÂ·Î ½ÇÇàÇØ¾ß ÇÑ´Ù
+		// ê°™ì€ ë™ì‘ì„ í•˜ëŠ” ìŠ¤ë ˆë“œ ì‚¬ìš© ì‹œ Thread(Runnable arg0) í˜•íƒœë¡œ ì‹¤í–‰í•´ì•¼ í•œë‹¤
 		//
 		WithdrawThread tr = new WithdrawThread();
 
@@ -23,7 +23,7 @@ public class ThreadEx03_SyncMutex_Withdraw_FIX {
 class Account {
 	
 	/*
-	 * class ¸â¹öº¯¼ö·Î ¼±¾ğÇØ¾ß ÇÑ´Ù
+	 * class ë©¤ë²„ë³€ìˆ˜ë¡œ ì„ ì–¸í•´ì•¼ í•œë‹¤
 	 */
 	static ReentrantLock lock = new ReentrantLock(); 
 	
@@ -66,12 +66,12 @@ class Account {
 
 class WithdrawThread implements Runnable {
 
-	Account acc = new Account();
+	Account acc = new Account(); // ë³€ìˆ˜ ë° ìƒì„±ì ì„ ì–¸ì„ í•œë²ˆì— í•¨
 	
 	public void run() {
 		while(acc.getBalance()> 0) {
 			
-			// 100, 200, 300ÁßÀÇ ÇÑ °ªÀ» ÀÓÀ¸·Î ¼±ÅÃÇØ¼­ Ãâ±İ(withdraw)
+			// 100, 200, 300ì¤‘ì˜ í•œ ê°’ì„ ì„ìœ¼ë¡œ ì„ íƒí•´ì„œ ì¶œê¸ˆ(withdraw)
 			int money = (int)(Math.random() * 3 + 1) * 100;
 			
 			acc.withdraw(money);
