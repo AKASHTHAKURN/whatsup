@@ -23,11 +23,11 @@ public class Basic_InputOutput {
 	 */
 	static void consoleInput() {
 
-		Scanner scanner = new Scanner(System.in);
-		while(scanner.hasNextLine()) {
-			String str = scanner.nextLine();
+		Scanner sc = new Scanner(System.in);
+		while(sc.hasNextLine()) {
+			String str = sc.nextLine();
 		}
-		scanner.close();
+		sc.close();
 
 	}
 	
