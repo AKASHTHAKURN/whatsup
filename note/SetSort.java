@@ -24,29 +24,40 @@ public class SetSort {
 
 		// already sorted ascending
 		for(String s : sl) 
-            System.out.println(s);
+           		System.out.println(s);
 		System.out.println();
 
 		// descending
 		Set<String> intsReverse = (TreeSet<String>) sl.descendingSet(); 
 
 		for(String s : intsReverse) 
-            System.out.println(s);
+            		System.out.println(s);
 		System.out.println();
+		
+		// ì—­ì •ë ¬
+		TreeSet<Integer> ts = new TreeSet<Integer>(Collections.reverseOrder());
+
+		ts.add(7);
+		ts.add(1);
+		ts.add(3);
+		ts.add(5);
+
+		for(Integer s : ts)
+			System.out.println(s);		
 	}
 
 	public static void SetSortObject() {
 		
 		TreeSet<Board3> ts = new TreeSet<Board3>();
 
-    	ts.add(new Board3(1, "È«±æµ¿", "2016-01-02"));
-    	ts.add(new Board3(2, "ÀÌ°æÁø", "2017-03-05"));
-    	ts.add(new Board3(7, "ÀÌ°æÁø", "2018-03-05"));
-    	ts.add(new Board3(3, "¹Ú³ª·¡", "2015-12-15"));
-    	ts.add(new Board3(4, "±èÃ¶¼ö", "2016-10-05"));
+		ts.add(new Board3(1, "í™ê¸¸ë™", "2016-01-02"));
+		ts.add(new Board3(2, "ì´ê²½ì§„", "2017-03-05"));
+		ts.add(new Board3(7, "ì´ê²½ì§„", "2018-03-05"));
+		ts.add(new Board3(3, "ë°•ë‚˜ë˜", "2015-12-15"));
+		ts.add(new Board3(4, "ê¹€ì² ìˆ˜", "2016-10-05"));
 
-        for(Board3 board : ts)
-            System.out.println(board);		
+		for(Board3 board : ts)
+		    System.out.println(board);		
 	}
 }
 
