@@ -1,5 +1,10 @@
 package collections.sort;
 
+/*
+.hashset 클래스 정렬 -> list로 변환하여 collections.sort
+.treeset 클래스 정렬은 클래스에 comparable 구현
+*/
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -64,8 +69,8 @@ public class SetSort {
 class Board3 implements Comparable<Board3> {
     
 	private int num;
-    private String name = "";
-    private String date = "";
+	private String name = "";
+	private String date = "";
 
     public Board3(int num, String name, String date) {
         this.num = num;
