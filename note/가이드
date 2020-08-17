@@ -1,7 +1,25 @@
+======================================================================================================
+가능한 List로 처리해라(다중정렬 사용위해)
+
+List : 순서있음, 데이터 중복 허용
+Set : 순서없음, 데이터 중복 불가
+Map : key, value 저장, Key 중복불가, value 중복 허용
+
+Set
+- HashSet 중복불허, 입력순서 보장하지 않음
+- TreeSet 중복불허, 오름차순 정렬
+- LinkedHashSet 중복불허, 입력된 순서를 보장
+
+Map : [k,v] 키값 중복불허
+- HashMap 입력순서 보장안함
+- TreeMap 키값으로 정렬
+- LinkedHashMap 입력순서 보장
+======================================================================================================
+
 - 실수형 정렬, 오름차순일 경우 g1, g2 반대로 입력
 Collections.sort(al, (g1, g2) -> Double.compare(g2.getSum(), g1.getSum()));  
 
-- 실수형 연산 (double, float)
+- 실수형 연산 (double, float)은 무조건 BigDecimal 사용
 public Grade(String str, int k, int e, int m)
 {
     strName = str;
@@ -35,4 +53,59 @@ class Grade
     private int Korean;
     private int English;
     private int Math; 
-}    
+}
+
+======================================================================================================
+@ Eclipse 자동완성(Ctrl-Space) 안될 때
+
+1. 키 등록 확인
+Preferences > Generals -> keys > Content Assist 을 눌러서
+Command(Content Assist)에 Binding ( Ctrl+Space )로 되어 있는지 확인
+
+2. 드롭박스 정보  설정 확인
+Preferences > Java > Editor > Content Assist > Advanced을 눌러서
+Default Proposal Kinds에 JavaProposals(Code Recommenders)가 체크되어 있는지 확인
+=> 아니면 Restore Defaults 로 원복시킨다
+
+3. 다른 곳 단축키 확인
+두개 다 정상적으로 설정되어 있다면 Ctrl+Space키를 어디선가 가로채고 있다고 보아야 한다.
+이 경우에는 1번의 키를 다른 키로 변경하여 테스트를 해본다 ( ex. Ctrl+Alt+N )
+해당 Ctrl+Space가 한자변환키인지 다른키인지 확인을 해보고 한자변환이라면 4번에서 자판으로 설정을 하자.
+
+4. 자판배열 변경 : 자판배열2이 Shift+Space지원이라 편하다.
+[자판배열1] : 한영전환 -> 오른쪽 ALT, 한문전환 -> 오른쪽 Ctrl
+
+윈도우 시작 -> 실행 -> regedit 입력 후 확인
+Hkey_Local_Machine -> System -> CurrentControlSet -> Services -> i8042prt -> Parameters
+
+- 값을 아래와 같이 설정
+LayerDriverKOR : KBD101A.DLL
+OverrideKeyboardIdentifier : PCAT_101Akey
+OverrideKeyboardSubtype : 3
+OverrideKeyboardType : 8
+
+리부팅
+
+[자판배열2] : 한영전환 -> Shift+Space, 한문전환 -> 오른쪽 Alt
+아래 내용은 그대로 key.reg로 저장을 하여 실행을 하면 된다. 직접 regedit를 실행해서 각각의 변수들을 설정하여도 된다.
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\i8042prt\Parameters]
+"PollingIterations"=dword:00002ee0
+"PollingIterationsMaximum"=dword:00002ee0
+"ResendIterations"=dword:00000003
+"LayerDriver JPN"="kbd101.dll"
+"LayerDriver KOR"="kbd101c.dll"
+"OverrideKeyboardType"=dword:00000008
+"OverrideKeyboardSubtype"=dword:00000005
+"OverrideKeyboardIdentifier"="kbd101c.dll"
+"KeyboardFailedReset"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
+"Scancode Map"=hex:00,00,00,00,\
+                   00,00,00,00,\
+                   02,00,00,00,\
+                   71,00,38,E0,\
+                   00,00,00,00
+
+<end of doc>
