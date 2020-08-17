@@ -3,30 +3,27 @@ package ssp.string_proc;
 public class ConvertStringNumber {
 
 	public static void main(String[] args) {
-
-		/*****************************************/
-		/*
-		 * Summary
-		 */
 		
-		// ±âº»Çü -> ¹®ÀÚ¿­
+		/****** Summary **************************/
+		
+		// ê¸°ë³¸í˜• -> ë¬¸ìì—´
 		String str;
 		str = String.valueOf(100);
 		str = String.valueOf(10.5);
 		
 		
-		// ¹®ÀÚ¿­ -> ±âº»Çü
+		// ë¬¸ìì—´ -> ê¸°ë³¸í˜•
 		int n1 = Integer.valueOf("1024");
 		int n2 = Integer.parseInt("1966");
 		
 		/*****************************************/
 		
 		/*
-		 * ±âº»Çü -> ¹®ÀÚ¿­
+		 * ê¸°ë³¸í˜• -> ë¬¸ìì—´
 		 */
 		// static String valueOf(Object o)
 		// boolean b, char c, int i, long l, float f, double d, Objec o
-		// ¹®ÀÚ¿­·Î º¯È¯ÇÏ¿© ¹İÈ¯ÇÑ´Ù, ÂüÁ¶º¯¼ö¿¡´Â toString()À» È£ÃâÇÑ °á°ú¸¦ ¹İÈ¯ÇÑ´Ù
+		// ë¬¸ìì—´ë¡œ ë³€í™˜í•˜ì—¬ ë°˜í™˜í•œë‹¤, ì°¸ì¡°ë³€ìˆ˜ì—ëŠ” toString()ì„ í˜¸ì¶œí•œ ê²°ê³¼ë¥¼ ë°˜í™˜í•œë‹¤
 		System.out.println(String.valueOf(true));		// boolean
 		System.out.println(String.valueOf('a'));		// char
 		System.out.println(String.valueOf(100));		// int
@@ -35,11 +32,11 @@ public class ConvertStringNumber {
 		System.out.println(String.valueOf(10.1d));		// double
 		
 		/*
-		 * Á¤¼öÇüÀ» Áø¼öº¯È¯ÇÏ¿© -> ¹®ÀÚ¿­
+		 * ì •ìˆ˜í˜•ì„ ì§„ìˆ˜ë³€í™˜í•˜ì—¬ -> ë¬¸ìì—´
 		 */
 		// public static String toHexString(int i)
-		// Á¤¼ö¸¦ 16Áø¼ö Á¤¼ö·Î º¯È¯
-		// ½ºÆ®¸µ ¹è¿­ ÃÊ±âÈ­ ¹æ¹ı
+		// ì •ìˆ˜ë¥¼ 16ì§„ìˆ˜ ì •ìˆ˜ë¡œ ë³€í™˜
+		// ìŠ¤íŠ¸ë§ ë°°ì—´ ì´ˆê¸°í™” ë°©ë²•
 		String[] st = new String[3];
 		st[0] = Integer.toHexString(255).toUpperCase();
 		st[1] = Integer.toBinaryString(100);
@@ -47,15 +44,15 @@ public class ConvertStringNumber {
 		for(String ss : st) System.out.println(ss);
 
 		/*
-		 * ¹®ÀÚ¿­ -> Á¤¼öÇü
+		 * ë¬¸ìì—´ -> ì •ìˆ˜í˜•
 		 */
 		int i1	= Integer.valueOf("255");
-		int	i2 	= Integer.valueOf("ff", 16);	// radix
+		int i2 	= Integer.valueOf("ff", 16);	// radix
 
 		System.out.println("i2 = " + i2);
 		
 		/*
-		 * ¹®ÀÚ¿­ -> ±âº»Çü
+		 * ë¬¸ìì—´ -> ê¸°ë³¸í˜•
 		 */
 		int 	i 	= Integer.parseInt("1024");
 		boolean b 	= Boolean.parseBoolean("true"); 
@@ -66,17 +63,15 @@ public class ConvertStringNumber {
 		double	d 	= Double.parseDouble("10.2");
 		
 		/*
-		 * ¹®ÀÚ -> ±âº»Çü, ¹®ÀÚ´Â substringÀ» »ç¿ëÇÏ¿© String ÇÑ±ÛÀÚ·Î ¸¸µé¾î¼­ Ã³¸®ÇÏ´Â°Ô ÁÁ´Ù
+		 * ë¬¸ì -> ê¸°ë³¸í˜•, ë¬¸ìëŠ” substringì„ ì‚¬ìš©í•˜ì—¬ String í•œê¸€ìë¡œ ë§Œë“¤ì–´ì„œ ì²˜ë¦¬í•˜ëŠ”ê²Œ ì¢‹ë‹¤
 		 */
-		i = Character.digit('5', 10); // radix, ¼ıÀÚ°¡ ¾Æ´Ò°æ¿ì -1·Î º¯È¯µÊ
+		i = Character.digit('5', 10); // radix, ìˆ«ìê°€ ì•„ë‹ê²½ìš° -1ë¡œ ë³€í™˜ë¨
 
 		/*
-		 * ³¯Â¥ º¯È¯
+		 * ë‚ ì§œ ë³€í™˜
 		 */
 		java.util.Date dt = new java.util.Date();
 		String date = String.valueOf(dt);
 		System.out.println(dt);
-
 	}
-
 }
