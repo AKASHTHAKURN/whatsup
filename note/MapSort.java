@@ -32,6 +32,10 @@ public class MapSort {
 		tm.put("ddd", 	"JAMES"); 
 		tm.put("eee", 	"FOX"); 
 
+		// key 존재 여부 
+		if(tm.containsKey("aaa"))
+			tm.put("aaa", 	"Slash");
+		
 		for(String s : tm.keySet())
 			System.out.println(s + " " +  tm.get(s));
 	}
