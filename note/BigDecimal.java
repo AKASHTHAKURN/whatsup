@@ -5,6 +5,17 @@ import java.math.BigDecimal;
 // float 연산은 BigDecimal 사용
 // double 연산은 일반 연산도 가능
 
+/* 소수점 자리수 제한을 위해 printf 사용, %f 반올림 된다 */
+// %s      : ASDF
+// %10s    : _____ASDF
+// %-10s   : ASDF_____
+// %10.3s  : ______ASD
+// %-10.3s : ASD______
+// %05d    : 00123
+// %-5d    : 123__
+// %-10.3f : 123.457__
+// 10.3E   : _1235E+02
+
 public class BigDecimal_Exam {
 
 	public static void main(String[] args) {
