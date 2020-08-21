@@ -98,6 +98,9 @@ public class String_Process {
 		s1 = s.replaceAll("BB", "bbb");
 		System.out.println("20) " + s1);
 
+// 	replaceAll - 숫자제거
+		s = s.replaceAll("[0-9]", ""); 
+		
 //	replaceAll - 특수문자 제거		
 		String match = "[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]";
 		String str = "azA*Z019 아이폰***6를 샀는데 iphone5보다% 이쁘지는 않더라";
