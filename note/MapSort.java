@@ -1,14 +1,15 @@
-package collection.sort.map;
+package tct_summary;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-
 import java.util.TreeMap;
+
+// Map 객체를 다중정렬 하려면 List 에 객체를 넣고 한다
 
 public class MapSort {
 
@@ -16,10 +17,11 @@ public class MapSort {
 
 //		MapSortKey();
 //		MapSortValue();
-		MapSortObject();
+//		MapSortObject();
+		MapSortMultiObject();
 	}
 
-	// TreeMap을 사용한 key 정렬
+	/* TreeMap을 사용한 key 정렬 */
 	public static void MapSortKey() {
 			
 	 	//TreeMap<String, String> tm = new TreeMap<>(hm); 
@@ -40,7 +42,7 @@ public class MapSort {
 			System.out.println(s + " " +  tm.get(s));
 	}
 	
-	// key & value 정렬
+	/* key & value 정렬 */
 	public static void MapSortValue() {
 		
 		Map<String, String> m = new HashMap<>(); 
@@ -58,13 +60,15 @@ public class MapSort {
 		
 		// value 문자 정렬
 		Collections.sort(list, (g1, g2) -> g2.getValue().compareTo(g1.getValue()));
-		// value 정수 
-//		Collections.sort(list, (g1, g2) -> g2.getValue() - g1.getValue());
+
+		// value 숫자 정렬
+		//Collections.sort(list, (g1, g2) -> g2.getValue() - g1.getValue());
 		
 		for(Entry<String, String> s :list)
 			System.out.println(s.getKey() + " " + s.getValue());
 	}
 	
+	/* 객체 정렬 */
 	public static void MapSortObject() {
 
 		Map<Integer, Grade> m = new HashMap<Integer, Grade>();
@@ -95,6 +99,40 @@ public class MapSort {
 		}
 		System.out.println();
 	}	
+	
+	/* 다중 정렬 */
+	public static void MapSortMultiObject() {
+
+		Map<Integer, Grade> m = new HashMap<Integer, Grade>();
+		
+		m.put( 1, new Grade("apple",   70, 70, 70, 1) );
+		m.put( 5, new Grade("banana",  90, 30, 90, 5) );
+		m.put( 3, new Grade("cupcake", 90, 40, 30, 3) );
+		m.put( 4, new Grade("frogen",  90, 50, 80, 4) );
+		m.put( 2, new Grade("ginger",  50, 70, 20, 2) );
+		
+		for(Integer n : m.keySet())
+			System.out.printf("%d %s %d %d %d\n", n, m.get(n).getName(), m.get(n).getKorean(), m.get(n).getMath(), m.get(n).getEnglish()  );
+		System.out.println();
+		
+		// list를 다중 정렬
+		List<Grade> list = new ArrayList<>(m.values());
+		
+		Comparator<Grade> reversedKeyComparator = Comparator.comparing(Grade::getName).reversed();
+		
+		list.sort( Comparator.comparing(Grade::getKorean).reversed().thenComparing(reversedKeyComparator) );
+
+		for(Grade n : list) {
+			System.out.printf("%d %s %d %d %d\n", 
+					n.getKey(),
+					n.getName(),
+					n.getKorean(), 
+					n.getMath(), 
+					n.getEnglish()  );
+		}
+		System.out.println();
+
+	}	
 }
 
 class Grade
@@ -103,7 +141,8 @@ class Grade
     private int Korean;
     private int English;
     private int Math; 
-
+    private int key;
+    
     public Grade(String str, int k, int e, int m)
     {
         strName = str;
@@ -112,7 +151,24 @@ class Grade
         Math = m;
     }
 
-    public String getName()
+    public Grade(String str, int k, int e, int m, int key)
+    {
+        strName = str;
+        Korean = k;
+        English = e;
+        Math = m;
+        this.key = key;
+    }
+    
+    public int getKey() {
+		return key;
+	}
+
+	public void setKey(int key) {
+		this.key = key;
+	}
+
+	public String getName()
     {
         return strName;
     }
