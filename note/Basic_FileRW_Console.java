@@ -1,50 +1,33 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Scanner;
+package tct_summary;
 
-public class Basic_InputOutput {
+import java.io.*;
+import java.util.*;
 
-	public static void main(String[] args) {
-		
+public class Basic_FileRW_Console {
 
-	}
-
-	/*
-	 * 콘솔 입력 받기
-	 */
-	static void consoleInput() {
-
+	// 콘솔 입력 받기
+	static void consoleInput() 
+	{
 		Scanner sc = new Scanner(System.in);
-		while(sc.hasNextLine()) {
+		while(sc.hasNextLine()) 
+		{
 			String str = sc.nextLine();
 		}
 		sc.close();
-
 	}
 	
-	/*
-	 * Text file read write
-	 */
-	static void copyTextFile(String inputFile, String outputFile) throws IOException  {
-	
+	// Text file read write
+	static void copyTextFile(String inputFile, String outputFile) throws IOException  
+	{
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
 		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outputFile));
 		
 		String line;
-		while((line = bufferedReader.readLine()) != null) { 
-			System.out.println(line); 
+		while((line = bufferedReader.readLine()) != null) 
+		{ 
+			String[] tmp = line.split("#");
 			
-			/*
-			 * 줄바꿈 할때 CR->LF 순으로 "\r\n" 추가해준다
-			 * 메모장에서 행 바꾸면 위와같이 입력됨 0x0A 0x0D
-			 */
+			//줄바꿈 할때 CR->LF 순으로 "\r\n" 추가해준다, 메모장에서 행 바꾸면 위와같이 입력됨 0x0A 0x0D
 			bufferedWriter.write(line + "\r\n");	
 		} 
 
@@ -74,3 +57,24 @@ public class Basic_InputOutput {
 		outputStream.close();
 	}
 }
+
+// 클래스 템플릿
+class SampleClass {
+	
+	private String name;
+	
+	SampleClass(String name) {
+		
+		this.name = name;
+	}
+
+	// alt+shift+s -> Generate getters and setters
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+// end of file
