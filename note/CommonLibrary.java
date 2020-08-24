@@ -1,9 +1,11 @@
-package lib.tct.cns;
+package tct_summary;
 
-public class testLib {
+import java.io.*;
+import java.util.*;
+
+public class CommonLibrary {
 
 	public static void main(String[] args) {
-
 		
 		System.out.println(convIntString(232, 5));
 
@@ -14,15 +16,13 @@ public class testLib {
 		System.out.println(convTimeToSec("00:01:10"));
 		
 		System.out.println(convSecToTime(54010));
-	
 	}
-
 	
 	//=============================================================//
 	
 	// "00:01:10" -> 70 sec
-	public static int convTimeToSec(String strTime) {
-	
+	public static int convTimeToSec(String strTime) 
+	{
 		String[] dat = strTime.split(":");
 		int val = Integer.valueOf(dat[0])*3600 + Integer.valueOf(dat[1])*60 + Integer.valueOf(dat[2]);
 
@@ -30,8 +30,8 @@ public class testLib {
 	}
 	
 	// 시간을 변환
-	public static String convSecToTime(int remainSec) {
-		
+	public static String convSecToTime(int remainSec) 
+	{
 		int val = remainSec;
 		
 		String a1, a2, a3;
@@ -52,8 +52,8 @@ public class testLib {
 	}
 	
 	// 시간을 변환
-	public static String convTime(String base, int remainSec) {
-		
+	public static String convTime(String base, int remainSec) 
+	{
 		//if(remainSec ==0)
 		//	return "00:00:00";
 		
@@ -77,10 +77,24 @@ public class testLib {
 		return a1 + ":" + a2 + ":" + a3;
 	}
 	
+	// "0"으로 fill in,
+	// fillString("232", 5) -> "00232" 
+	public static String fillString(String str, int cnt) 
+	{
+		if(str.length() >= cnt)
+			return str;
+		
+		for(int i=0; i<cnt-str.length(); i++)
+		{
+			str = "0" + str;
+		}
+
+		return str;
+	}
 	
 	// int 232 -> string 00232, n 자리수
-	public static String convIntString(int num, int radix) {
-		
+	public static String convIntString(int num, int radix) 
+	{
 		String str = String.valueOf(num);
 		String temp = "";
 		
@@ -92,15 +106,16 @@ public class testLib {
 		return  temp + str;
 	}
 	
-	public static int convStringInt(String str) {
+	public static int convStringInt(String str) 
+	{
 		return (Integer.valueOf(str));
 	}
 
 	/*
 	 * 사이니지에 정보를 출력, list 정보를 sinage.exe 에 스트림 출력 하는 
 	 */
-	public static void sendSignage(ArrayList<String> list) {
-		
+	public static void sendSignage(ArrayList<String> list) 
+	{
 		Process process = null;
 		String[] cmd = new String[] {"SIGNAGE"};
 
@@ -119,3 +134,4 @@ public class testLib {
 		}
 	}	
 }
+// end of file
