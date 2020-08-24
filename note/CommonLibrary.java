@@ -84,10 +84,12 @@ public class CommonLibrary {
 		if(str.length() >= cnt)
 			return str;
 		
-		for(int i=0; i<cnt-str.length(); i++)
+		int size = cnt-str.length();
+		
+		for(int i=0; i<size; i++)
 		{
 			str = "0" + str;
-		}
+		}		
 
 		return str;
 	}
