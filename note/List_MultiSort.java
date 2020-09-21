@@ -1,4 +1,4 @@
-package collections.sort;
+package tct_summary;
 
 import java.util.*;
 import java.io.*;
@@ -10,7 +10,7 @@ public class List_MultiSort {
     	ArrayList<Grade> al = new ArrayList<>(); 
     	
         try {
-            BufferedReader in = new BufferedReader(new FileReader("DS_Sample1.txt"));
+            BufferedReader in = new BufferedReader(new FileReader("DS_Sample2.txt"));
             String str;
             while ((str = in.readLine()) != null) {
             	String words[] = str.split(" ");
@@ -19,37 +19,45 @@ public class List_MultiSort {
             }
             in.close();
         } catch (IOException e) {
-            System.err.println(e); // ¿¡·¯°¡ ÀÖ´Ù¸é ¸Ş½ÃÁö Ãâ·Â
+            System.err.println(e); // ì—ëŸ¬ê°€ ìˆë‹¤ë©´ ë©”ì‹œì§€ ì¶œë ¥
             System.exit(1);
         }
         
-		Collections.sort(al, (g1, g2) -> (g2.getKorean() - g1.getKorean()));
+
+        // êµ­ì–´ ë‚´ë¦¼ì°¨ìˆœ, ì˜›ë‚  ë°©ì‹
+        Collections.sort(al, (g1, g2) -> (g2.getKorean() - g1.getKorean()));
 		
-		// Á¡¼ö ³»¸²Â÷¼øÁ¤·Ä
+		// êµ­ì–´ ë‚´ë¦¼ì°¨ìˆœ, ì‹ ê·œ ë°©ì‹ ì‚¬ìš©í•  ê²ƒ
 		al.sort(Comparator.comparing(Grade::getKorean).reversed());
 
-		// Á¡¼ö °°À» °æ¿ì ÀÌ¸§ ¼øÁ¤·Ä Á¤·Ä
+		// êµ­ì–´ ë‚´ë¦¼ì°¨ìˆœ, ê°™ìœ¼ë©´ ì´ë¦„ ë‚´ë¦¼ì°¨ìˆœ
 		al.sort( Comparator.comparing(Grade::getKorean).reversed().thenComparing(Grade::getName)  );
-		
-		// Á¡¼ö °°À» °æ¿ì ÀÌ¸§ ¿ªÁ¤·Ä Á¤·Ä 
-		// Á¶°ÇÀÌ ¾î·Á¿ì¸é ¶÷´Ù °´Ã¼¸¦ ÇÏ³ª ¸¸µé¾î¼­ Ãß°¡
-		Comparator<Grade> reversedNameComparator = Comparator.comparing(Grade::getName).reversed();
-		al.sort( Comparator.comparing(Grade::getKorean).reversed().thenComparing(reversedNameComparator));
 
-		// comparator ÀÌ¿ë
+		/* ì¡°ê±´ ë§Œë“¤ê¸° ì–´ë ¤ìš°ë©´ ëŒë‹¤ ê°ì²´ë¥¼ í•˜ë‚˜ ë§Œë“¤ì–´ì„œ ì¶”ê°€ */
+		
+		//Comparator<Grade> comp2 = Comparator.comparing(Grade::getName, String.CASE_INSENSITIVE_ORDER);	// ëŒ€ì†Œë¬¸ì ë¬´ì‹œ
+		Comparator<Grade> comp2 = Comparator.comparing(Grade::getName);
+		
+		Comparator<Grade> comp1 = Comparator.comparing(Grade::getEnglish).reversed().thenComparing(comp2);
+		
+		al.sort( Comparator.comparing(Grade::getKorean).reversed().thenComparing(comp1));
+
+	   	for(Grade val:al)
+				System.out.println(String.format("%5s %4d %4d %4d",val.getName(), val.getKorean(), val.getEnglish(), val.getMath()));
+	    	System.out.println();
+
+		// comparator ì´ìš©, ì•ˆì¢‹ì€ ë°©ë²•
 		Collections.sort(al, new GradeCompare());
 		
-    	for(Grade val:al)
-			System.out.println(String.format("%5s %4d %4d %4d",val.getName(), val.getKorean(), val.getEnglish(), val.getMath()));
-    }
+     }
 }
 
 /*
-	´ë¼Ò¹®ÀÚ ±¸ºĞ¾øÀÌ ºñ±³¸¦ ÇÏ½Ã·Á¸é 
-	Comparator ÀÎÅÍÆäÀÌ½º ±¸Çö ¹æ½Ä¿¡¼­´Â compareTo ¸Ş¼Òµå ´ë½Å compareToIgnoreCase ¸Ş¼Òµå¸¦ »ç¿ëÇÏ½Ã¸é µË´Ï´Ù. 
-	±×¸®°í ¾Æ·¡ÀÇ comparing ¸Ş¼Òµå¸¦ »ç¿ëÇÏ½Ã·Á¸é 
+	ëŒ€ì†Œë¬¸ì êµ¬ë¶„ì—†ì´ ë¹„êµë¥¼ í•˜ì‹œë ¤ë©´ 
+	Comparator ì¸í„°í˜ì´ìŠ¤ êµ¬í˜„ ë°©ì‹ì—ì„œëŠ” compareTo ë©”ì†Œë“œ ëŒ€ì‹  compareToIgnoreCase ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•˜ì‹œë©´ ë©ë‹ˆë‹¤. 
+	ê·¸ë¦¬ê³  ì•„ë˜ì˜ comparing ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•˜ì‹œë ¤ë©´ 
 	Comparator.comparing(Student::getName, String.CASE_INSENSITIVE_ORDER); 
-	ÀÌ·±½ÄÀ¸·Î µÚ¿¡ ¿À´õ¸¦ Ãß°¡ÇØÁÖ¸é µË´Ï´Ù. thenComparing ¸Ş¼Òµå¿¡µµ µ¿ÀÏÇÏ°Ô Àû¿ëµË´Ï´Ù.
+	ì´ëŸ°ì‹ìœ¼ë¡œ ë’¤ì— ì˜¤ë”ë¥¼ ì¶”ê°€í•´ì£¼ë©´ ë©ë‹ˆë‹¤. thenComparing ë©”ì†Œë“œì—ë„ ë™ì¼í•˜ê²Œ ì ìš©ë©ë‹ˆë‹¤.
 */
 class GradeCompare implements Comparator<Grade> {
 
@@ -60,9 +68,9 @@ class GradeCompare implements Comparator<Grade> {
 		
 		if(g1.getKorean() == g2.getKorean()) {
 
-			// compareToIgnoreCase ´ë¼Ò¹®ÀÚ ±¸ºĞ ¾øÀ½
+			// compareToIgnoreCase ëŒ€ì†Œë¬¸ì êµ¬ë¶„ ì—†ìŒ
 			if(g1.getName().compareTo(g2.getName()) == 0) {		
-				// °°À» °æ¿ì ¿©±â¿¡ ´Ù¸¥ Á¶°Ç Ãß°¡
+				// ê°™ì„ ê²½ìš° ì—¬ê¸°ì— ë‹¤ë¥¸ ì¡°ê±´ ì¶”ê°€
 				ret = 0;
 			}
 			else if(g1.getName().compareTo(g2.getName()) > 0) {
