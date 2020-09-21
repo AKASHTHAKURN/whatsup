@@ -1,52 +1,71 @@
-package collections.sort;
+package tct_summary;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class ListSort {
 
 	public static void main(String[] args) {
 
 		ListSortElement();
-		//ListSortObject();
+		
+		ListSortObject();
 	}
 	
 	public static void ListSortElement() {
     	
+		/* ë¬¸ìì—´ ì •ë ¬ */
 		ArrayList<String> al = new ArrayList<String>();
         
-    	al.add("¸¶ÇØ¿µ");
-    	al.add("ÃÖµ¿¿ø");
-    	al.add("¹ÚÂùÈ£");
-    	al.add("·ùÇöÁø");
-    	al.add("±è±âÅÂ");
-    	al.set(0, "¸¶µ¿Å¹");	// ÁöÁ¤µÈ index º¯°æ
+    	al.add("ahn");
+    	al.add("Kim");
+    	al.add("lee");
+    	al.add("Park");
+    	al.add("zakk");
+    	al.set(0, "Ralph");	// ì§€ì •ëœ index ë³€ê²½
 
         System.out.println("index[0] -> " + al.get(0));
-        System.out.println(al.indexOf("¹ÚÂùÈ£"));
+        System.out.println(al.indexOf("Park"));
 
-        // ascending
+        // ì˜¤ë¦„ì°¨ìˆœ
         Collections.sort(al);
 
-        // descending, must do ascending before
-        //Collections.reverse(al);	 
+        // ë‚´ë¦¼ì°¨ìˆœ -> ì—­ì •ë ¬, must do ascending before
+        Collections.reverse(al);	 
 
-        // or
-        
         Collections.sort(al, (g1, g2) -> g2.compareTo(g1));
+
+        Collections.sort(al, (g1, g2) -> g1.compareToIgnoreCase(g2));
         
         for(String s : al) 
         	System.out.println(s);		
+
+        /* ìˆ«ì ì •ë ¬ */
+        ArrayList<Integer> li = new ArrayList<Integer>();
+        
+    	li.add(100);
+    	li.add(222);
+    	li.add(14);
+    	li.add(4);
+
+        // ì˜¤ë¦„ì°¨ìˆœ í›„ ì—­ì •ë ¬ -> ë‚´ë¦¼ì°¨ìˆœ
+        Collections.sort(li);
+        Collections.reverse(li);	 
+
+    	for(Integer s : li) 
+        	System.out.println(s);		
+
 	}
 	
 	public static void ListSortObject() {
-
+		
     	ArrayList<Board> bList = new ArrayList<Board>();
         
-    	bList.add(new Board(1, "È«±æµ¿", "2016-01-02"));
-        bList.add(new Board(2, "¾Æ¹«°³", "2017-03-05"));
-        bList.add(new Board(3, "±è¿µÈñ", "2015-12-15"));
-        bList.add(new Board(4, "±èÃ¶¼ö", "2016-10-05"));
+    	bList.add(new Board(1, "ê¹€ì² ìˆ˜", "2016-01-02"));
+        bList.add(new Board(2, "ì•„ë¬´ê°œ", "2017-03-05"));
+        bList.add(new Board(3, "ê¹€ì˜í¬", "2015-12-15"));
+        bList.add(new Board(4, "ê¹€ì² ìˆ˜", "2016-10-05"));
 
         Collections.sort(bList, (g1, g2) -> g1.getName().compareTo(g2.getName()));
 
@@ -54,6 +73,10 @@ public class ListSort {
         
         Collections.sort(bList, (g1, g2) -> g1.getNum() - g2.getNum());
 
+		/* comparing ì‚¬ìš©í•  ê²ƒ */
+        // ì´ë¦„ìˆœ ì •ë ¬, ê°™ì€ë©´ ìƒì¼ ë¹ ë¥¸ìˆœ
+        bList.sort(Comparator.comparing(Board::getName).thenComparing(Board::getDate));
+        
         for(Board b : bList)
             System.out.println(b);
 	}
