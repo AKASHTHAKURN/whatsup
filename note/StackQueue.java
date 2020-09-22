@@ -1,68 +1,24 @@
+package tct_summary;
+
 import java.util.*;
 
 /*
- * queue : add(), poll()
- * stack : push(), pop()
+ * stack : push, peek, pop, search(ArrayDeque 지원안됨)
+ * queue : add, poll, remove
  */
 
 public class StackQueue {
 
-	public static void main(String[] args) {
-
-		queueTest();
+	public static void main(String[] args) 
+	{
 		stackTest();
+		queueTest();
 	}
-	
-	static void queueTest() {
 
-		System.out.println("--- 큐테스트");
-		
-		Deque<String> qu = new ArrayDeque<String>();
-//	LinkedList<String> qu = new LinkedList<String>();
-		
-		// add() 메소드를 이용한 요소의 저장
-		qu.add("넷");
-		qu.add("둘");
-		qu.add("셋");
-		qu.add("하나");
-		
-		// peek() 메소드를 이용한 요소값 반환
-		System.out.println(qu.peek());
-		System.out.println(qu);
-		
-		// poll() 메소드를 이용한 요소값 반환 및 제거
-		System.out.println(qu.poll());
-		System.out.println(qu);
-
-		// add() 요소 추가
-		System.out.println(qu.add("다섯"));
-		System.out.println(qu.add("하나"));
-		System.out.println(qu);
-		
-		// remove() 메소드를 이용한 특정 요소의 제거 --> 만일 '하나'가 두개이면 앞부분 한개만 제거
-		System.out.println(qu.remove("하나"));	// 첫번째 제거
-		System.out.println(qu.remove("하나"));  // 두번째 제거
-		System.out.println(qu.remove("하나"));  // 없는거 제거 ,false
-		System.out.println(qu);
-
-		for(String n : qu)
-			System.out.print(n + " ");
-		System.out.println();		
-
-		/*
-		Iterator<String> it = qu.iterator();
-		while(it.hasNext())
-			System.out.print(it.next() + " ");
-		System.out.println();
-		*/
-	}
-	
-	static void stackTest() {
-
-		System.out.println("--- 스텍테스트");
-
+	static void stackTest() 
+	{
 		Stack<Integer> st = new Stack<Integer>();
-//	Deque<Integer> st = new ArrayDeque<Integer>();
+//		Deque<Integer> st = new ArrayDeque<Integer>();
 
 		// push() 메소드를 이용한 요소의 저장
 		st.push(1);
@@ -93,5 +49,47 @@ public class StackQueue {
 			System.out.print(it.next() + " ");
 		System.out.println();
 		*/		
+	}
+
+	static void queueTest() 
+	{
+		Deque<String> qu = new ArrayDeque<String>();
+//		LinkedList<String> qu = new LinkedList<String>();
+		
+		// add() 메소드를 이용한 요소의 저장
+		qu.add("넷");
+		qu.add("셋");
+		qu.add("둘");
+		qu.add("하나");
+		
+		// peek() 메소드를 이용한 요소값 반환, 제거되지 않음
+		System.out.println(qu.peek());
+		System.out.println(qu);
+		
+		// poll() 메소드를 이용한 요소값 반환 및 제거
+		System.out.println(qu.poll());
+		System.out.println(qu);
+
+		// add() 요소 추가
+		System.out.println(qu.add("다섯"));
+		System.out.println(qu.add("하나"));
+		System.out.println(qu);
+		
+		// remove() 메소드를 이용한 특정 요소의 제거 --> 만일 '하나'가 두개이면 앞부분 한개만 제거
+		System.out.println(qu.remove("하나"));	// 첫번째 제거
+		System.out.println(qu.remove("하나"));  // 두번째 제거
+		System.out.println(qu.remove("하나"));  // 없는거 제거 ,false
+		System.out.println(qu);
+
+		for(String n : qu)
+			System.out.print(n + " ");
+		System.out.println();		
+
+		/*
+		Iterator<String> it = qu.iterator();
+		while(it.hasNext())
+			System.out.print(it.next() + " ");
+		System.out.println();
+		*/
 	}
 }
