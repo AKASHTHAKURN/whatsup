@@ -1,12 +1,28 @@
-package collections.sort;
+package tct_summary;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 /*
 .hashset 클래스 정렬 -> list로 변환하여 collections.sort
 .treeset 클래스 정렬은 클래스에 comparable 구현
+
+List : 순서있음, 데이터 중복 허용
+Set : 순서없음, 데이터 중복 불가
+Map : key, value 저장, Key 중복불가, value 중복 허용
+
+Set
+- HashSet 중복불허, 입력순서 보장하지 않음
+- TreeSet 중복불허, 오름차순 정렬
+- LinkedHashSet 중복불허, 입력된 순서를 보장
+
 */
 
 import java.util.Set;
 import java.util.TreeSet;
+
+
 
 public class SetSort {
 
@@ -14,10 +30,13 @@ public class SetSort {
 
 		SetSortElement();
 		
-		SetSortObject();
+		HashSetSort();
+
+		TreeSetSort();
 		
 	}
 
+	
 	public static void SetSortElement() {
 
 		TreeSet<String> sl = new TreeSet<String>();
@@ -39,7 +58,7 @@ public class SetSort {
             		System.out.println(s);
 		System.out.println();
 		
-		// 역정렬
+		// 선언 때 역정렬로 선언
 		TreeSet<Integer> ts = new TreeSet<Integer>(Collections.reverseOrder());
 
 		ts.add(7);
@@ -51,7 +70,29 @@ public class SetSort {
 			System.out.println(s);		
 	}
 
-	public static void SetSortObject() {
+	public static void HashSetSort() {
+		HashSet<Board> ts = new HashSet<Board>();
+	
+		ts.add(new Board(1, "홍길동", "2016-01-02"));
+		ts.add(new Board(2, "이경진", "2017-03-05"));
+		ts.add(new Board(7, "이경진", "2018-03-05"));
+		ts.add(new Board(3, "박나래", "2015-12-15"));
+		ts.add(new Board(4, "김철수", "2016-10-05"));
+	
+		for(Board board : ts)
+		    System.out.println(board);		
+		System.out.println();
+	
+		ArrayList<Board> li = new ArrayList<>(ts);
+		
+		Collections.sort(li, (g1, g2) -> g1.getName().compareTo(g2.getName()));
+		
+		for(Board board : li)
+		    System.out.println(board);		
+		System.out.println();
+	}
+
+	public static void TreeSetSort() {
 		
 		TreeSet<Board3> ts = new TreeSet<Board3>();
 
@@ -78,6 +119,7 @@ class Board3 implements Comparable<Board3> {
         this.date = date;
     }
 
+    // 여기서 어떻게 정렬할 건지 선언
     @Override
     public int compareTo(Board3 board) {
 
