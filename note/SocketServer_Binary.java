@@ -4,39 +4,38 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/*
- * Binary ¼Û¼ö½Å
- * DataInputStream, FileOutputStream
- * 
- */
+// Binary ì†¡ìˆ˜ì‹ 
+// read :  DataInputStream, 
+// write : FileOutputStream
 
 public class SocketServer_Binary {
 
+	static int BUF_SIZE = 128;
+
 	public static void main(String[] args) throws IOException, InterruptedException {
 
-		ServerSocket listener = null;
+		ServerSocket listener = new ServerSocket(9876);
 
-		listener = new ServerSocket(9876);
+		System.out.println("ì„œë²„ê°€ ì—°ê²°ìš”ì²­ì„ ê¸°ë‹¤ë¦½ë‹ˆë‹¤.");
 
-		System.out.println("¼­¹ö°¡ ¿¬°á¿äÃ»À» ±â´Ù¸³´Ï´Ù.");
 		Socket socket = listener.accept();
-		System.out.println(socket.getInetAddress() + "·ÎºÎÅÍ ¿¬°á¿äÃ»ÀÌ µé¾î¿Ô½À´Ï´Ù.");
 
-//==============================================================================
+		System.out.println(socket);
+		System.out.println(socket.getInetAddress() + "ë¡œë¶€í„° ì—°ê²°ìš”ì²­ì´ ë“¤ì–´ì™”ìŠµë‹ˆë‹¤.");
+
 		DataInputStream dis = new DataInputStream(socket.getInputStream());
 		FileOutputStream fos = new FileOutputStream("./RECV/" + "sample.txt");
-		
-        int readLen = 0;
-        byte[] buffer = new byte[128];
 
-        while ((readLen = dis.read(buffer)) != -1) {
-        	fos.write(buffer, 0, readLen);
-        }
+		int readLen = 0;
+		byte[] buffer = new byte[BUF_SIZE];
 
-        dis.close();
+		while ((readLen = dis.read(buffer)) != -1) {
+			fos.write(buffer, 0, readLen);
+		}
+
+		dis.close();
 		fos.close();
-//==============================================================================
-		
+
 		System.out.println("server end");
-    }
+	}
 }
