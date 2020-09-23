@@ -1,53 +1,56 @@
+package socket.simple_ftp;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class SimpleFTP_SocketServer {
 
+	static int BUF_SIZE = 4096;
+
 	public static void main(String[] args) throws IOException, InterruptedException {
 
 		ServerSocket listener = null;
 
-		while(true)
+		while (true) 
 		{
 			listener = new ServerSocket(9876);
 
-			System.out.println("¼­¹ö°¡ ¿¬°á¿äÃ»À» ±â´Ù¸³´Ï´Ù.");
+			System.out.println("ì„œë²„ê°€ ì—°ê²°ìš”ì²­ì„ ê¸°ë‹¤ë¦½ë‹ˆë‹¤.");
 			Socket socket = listener.accept();
-			System.out.println(socket.getInetAddress() + "·ÎºÎÅÍ ¿¬°á¿äÃ»ÀÌ µé¾î¿Ô½À´Ï´Ù.");
-			
+			System.out.println(socket.getInetAddress() + "ë¡œë¶€í„° ì—°ê²°ìš”ì²­ì´ ë“¤ì–´ì™”ìŠµë‹ˆë‹¤.");
+
 			DataInputStream dis = new DataInputStream(socket.getInputStream());
-	        
+
 			int readSize;
-			int bufSize = 256;
-			byte[] byteBuf = new byte[bufSize];
-			
+			byte[] byteBuf = new byte[BUF_SIZE];
+
 			try {
-				// 
 				String tmp[] = dis.readUTF().split("#");
 
 				String fileName = tmp[0];
 				int fileSize = Integer.parseInt(tmp[1]);
-				
-				OutputStream outputStream = new FileOutputStream("./RECV/" + fileName);
-				
-				int len = fileSize;
-				while (len > 0) {	
-					readSize = dis.read(byteBuf, 0, Math.min(bufSize, len));
-					len -= readSize;
-		        	outputStream.write(byteBuf, 0, readSize);
-		        }
 
-				outputStream.close();
+				FileOutputStream fos = new FileOutputStream("./RECV/" + fileName);
+
+				int len = fileSize;
+				while (len > 0) {
+					readSize = dis.read(byteBuf, 0, Math.min(BUF_SIZE, len));
+					len -= readSize;
+					fos.write(byteBuf, 0, readSize);
+				}
+
+				fos.close();
 				System.out.println("recv : " + tmp[0] + " " + tmp[1] + " bytes\n");
 
 			} catch (Exception e) {
-				// Å¬¶óÀÌ¾ğÆ®°¡ Á¾·áµÇ¾úÀ» °æ¿ì while »óÅÂ¿¡¼­ dis.readUTF() ½Ã EOF ¹ß»ı ½Ã Ã³¸® 
-				if (socket != null) socket.close(); 
+				// í´ë¼ì´ì–¸íŠ¸ê°€ ì¢…ë£Œë˜ì—ˆì„ ê²½ìš° while ìƒíƒœì—ì„œ dis.readUTF() ì‹œ EOF ë°œìƒ ì‹œ ì²˜ë¦¬
+				if (socket != null)
+					socket.close();
 			} finally {
 				listener.close();
-	        } 		
+			}
 		}
-        
-    }
+
+	}
 }
