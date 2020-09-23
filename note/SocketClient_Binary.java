@@ -5,10 +5,8 @@ import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
-
 /*
-
-	Socket ¡§∏Æ
+	Socket Ï†ïÎ¶¨
 	
 	[read]
 	InputStream in = socket.getInputStream();
@@ -23,13 +21,13 @@ import java.text.ParseException;
 		br.readLine();
 	
 	[write]
-	// OutputStream -> write byte[] ∏∏ ∞°¥… (±‚∫ª«¸≈¬)
+	// OutputStream -> write byte[] Îßå Í∞ÄÎä• (Í∏∞Î≥∏ÌòïÌÉú)
 	
-	// DataOutputStream -> ¥ŸæÁ«— «¸≈¬∑Œ write ∞°¥…
+	// DataOutputStream -> Îã§ÏñëÌïú ÌòïÌÉúÎ°ú write Í∞ÄÎä•
 	
 	// BufferedWriter -> String, char[] 
 	
-	// PrintWriter -> printπÆ ªÁøÎ∞°¥…, BufferedWriter ∫∏¥Ÿ¥¬ ¿Ã∞… Ω·∂Û
+	// PrintWriter -> printÎ¨∏ ÏÇ¨Ïö©Í∞ÄÎä•, BufferedWriter Î≥¥Îã§Îäî Ïù¥Í±∏ Ïç®Îùº
 	
 	OutputStream out = socket.getOutputStream();
 		out.write(b, off, len);
@@ -46,39 +44,38 @@ import java.text.ParseException;
 	
 */
 
-/*
- * Binary º€ºˆΩ≈
- */
+// Binary ÏÜ°ÏàòÏã†
+// read  : FileInputStream
+// write : DataOutputStream
 
-public class SocketClient_Binary 
-{
+public class SocketClient_Binary {
 	static String serverIp = "127.0.0.1";
 	static int portNo = 9876;
+	static int BUF_SIZE = 128;
 
-	public static void main(String[] args) throws IOException, NoSuchAlgorithmException, ParseException, InterruptedException {    
-
+	public static void main(String[] args)
+			throws IOException, NoSuchAlgorithmException, ParseException, InterruptedException {
 		sendFile("./SEND/sample.txt");
 	}
-	
+
 	public static void sendFile(String fileName) throws IOException, IOException {
 
-		Socket socket = new Socket(serverIp, 9876); 
-		System.out.println("º≠πˆø° ø¨∞·¡ﬂ¿‘¥œ¥Ÿ. º≠πˆIP :" + serverIp);
+		Socket socket = new Socket(serverIp, 9876);
 
-//==============================================================================
+		System.out.println(socket);
+
 		FileInputStream fis = new FileInputStream(fileName);
 		DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 
-        int readLen = 0;
-        byte[] buffer = new byte[128];
+		int readLen = 0;
+		byte[] buffer = new byte[BUF_SIZE];
 
-        while ((readLen = fis.read(buffer)) != -1) {
-        	dos.write(buffer, 0, readLen);
-        }
+		while ((readLen = fis.read(buffer)) != -1) {
+			dos.write(buffer, 0, readLen);
+		}
 
-        fis.close();
+		fis.close();
 		dos.close();
-//==============================================================================
 
 		System.out.println("client end");
 	}
