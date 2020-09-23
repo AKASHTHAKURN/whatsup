@@ -1,83 +1,35 @@
 package socket.text;
 
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
-import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
 
+// Text file ì†¡ìˆ˜ì‹ 
+public class SocketServer_Text {
 
-/*
+	public static void main(String[] args) throws IOException, InterruptedException 
+	{
+		ServerSocket listener = new ServerSocket(9876);;
 
-	Socket Á¤¸®
-	
-	[read]
-	InputStream in = socket.getInputStream();
-		in.read(buffer, 0, BUF_SIZE);
-	
-	DataInputStream dis = new DataInputStream(socket.getInputStream());
-		dis.readInt();
-		dis.read(buffer, 0, BUF_SIZE);
-		dis.readUTF();
-	
-	BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		br.readLine();
-	
-	[write]
-	// OutputStream -> write byte[] ¸¸ °¡´É (±âº»ÇüÅÂ)
-	
-	// DataOutputStream -> ´Ù¾çÇÑ ÇüÅÂ·Î write °¡´É
-	
-	// BufferedWriter -> String, char[] 
-	
-	// PrintWriter -> print¹® »ç¿ë°¡´É, BufferedWriter º¸´Ù´Â ÀÌ°É ½á¶ó
-	
-	OutputStream out = socket.getOutputStream();
-		out.write(b, off, len);
-	
-	DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-		dos.writeUTF(str);
-		dos.write(b, off, len);
-			
-	BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-		bw.write(str + "\r\n");
-	
-	PrintWriter pw = new PrintWriter(socket.getOutputStream(), true); // autoflush
-		pw.println(str);
-	
-*/
+	System.out.println("ì„œë²„ê°€ ì—°ê²°ìš”ì²­ì„ ê¸°ë‹¤ë¦½ë‹ˆë‹¤.");
 
-/*
- * Text ¼Û¼ö½Å
- */
-
-public class SocketClient_Text 
-{
-	static String serverIp = "127.0.0.1";
-	static int portNo = 9876;
-
-	public static void main(String[] args) throws IOException, NoSuchAlgorithmException, ParseException, InterruptedException {    
-
-		sendFile("./SEND/sample.txt");
-	}
+		Socket socket = listener.accept();
 	
-	public static void sendFile(String fileName) throws IOException, IOException {
-
-		Socket socket = new Socket(serverIp, 9876); 
-		System.out.println("¼­¹ö¿¡ ¿¬°áÁßÀÔ´Ï´Ù. ¼­¹öIP :" + serverIp);
-
-//==============================================================================
-		BufferedReader br = new BufferedReader(new FileReader(fileName));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+	System.out.println(socket);
+	System.out.println(socket.getInetAddress() + "ë¡œë¶€í„° ì—°ê²°ìš”ì²­ì´ ë“¤ì–´ì™”ìŠµë‹ˆë‹¤.");
+		
+		// ì†Œì¼“ìœ¼ë¡œ ë¶€í„° ìŠ¤íŠ¸ë¦¼ì„ ì½ì–´ì„œ íŒŒì¼ì— ì“°ê¸°	
+		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		BufferedWriter bw = new BufferedWriter(new FileWriter("./RECV/sample.txt"));
 		
 		String line;
-		while((line = br.readLine()) != null) { 
-			bw.write(line + "\r\n");	
-		} 
-
+		while((line = br.readLine()) != null) 
+		{
+			bw.write(line + "\r\n");
+		}
 		br.close();
 		bw.close();
-//==============================================================================
-
-		System.out.println("client end");
-	}
+		
+	System.out.println("server end");
+    }
 }
