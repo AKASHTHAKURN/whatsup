@@ -1,129 +1,134 @@
+package socket.simple_ftp;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
+// ìŠ¤ë ˆë“œ ì¢…ë£Œ ì•ˆë˜ëŠ” ë¬¸ì œ ìžˆìŒ
 
 public class SimpleFTP_SocketServer_Thread {
 
 	public final static boolean run = true;
-	
+
 	public static void main(String[] args) throws Exception {
 
 		Scanner sc = new Scanner(System.in);
-		
+
 		ThreadFTP r = new ThreadFTP();
 		Thread thread = new Thread(r);
 
 		thread.start();
 
-		while(true) {
-			
+		while (true) {
+
 			String cmd = sc.nextLine();
-			
-			if(cmd.equals("quit")) {
-				
-				//r.shutdown();
+
+			if (cmd.equals("quit")) {
+
+				// r.shutdown();
 				thread.interrupt();
 				break;
-				
-			}
-			
-		}
-		
-		thread.join();
-		
 
-    }
+			}
+
+		}
+
+		System.out.println("wait to join");
+
+		thread.join();
+
+		System.out.println("main end");
+
+	}
 }
 
 class ThreadFTP implements Runnable {
 
 	boolean shutdown = false;
 
-	// flag ¹æ½Ä »ç¿ëÇÒ °æ¿ì ÄÜ¼Ö ÀÔ·Â ½Ã listen¿¡¼­ ºí·ÏµÇ¾î ÀÖ´Â ¹®Á¦
+	// flag ë°©ì‹ ì‚¬ìš©í•  ê²½ìš° ì½˜ì†” ìž…ë ¥ ì‹œ listenì—ì„œ ë¸”ë¡ë˜ì–´ ìžˆëŠ” ë¬¸ì œ
 	public void shutdown() {
-        shutdown = true;
-    }
+		shutdown = true;
+	}
 
 	@Override
 	public void run() {
 
 		ServerSocket listener = null;
 
-		while(!Thread.currentThread().isInterrupted()) // !shutdown
-		//while(!shutdown)
+		while (!Thread.currentThread().isInterrupted()) // !shutdown
+		// while(!shutdown)
 		{
 			try {
 				listener = new ServerSocket(9876);
-				System.out.println("¼­¹ö°¡ ÁØºñµÇ¾ú½À´Ï´Ù.");
-			} catch(IOException e) {
+				System.out.println("ì„œë²„ê°€ ì¤€ë¹„ë˜ì—ˆìŠµë‹ˆë‹¤.");
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
 			Socket socket = null;
 			try {
-				System.out.println("¿¬°á¿äÃ»À» ±â´Ù¸³´Ï´Ù.");
-				socket = listener.accept();
-				System.out.println(socket.getInetAddress() + "·ÎºÎÅÍ ¿¬°á¿äÃ»ÀÌ µé¾î¿Ô½À´Ï´Ù.");
-				System.out.println("getPort():"+socket.getPort());
-		        System.out.println("getLocalPort():" + socket.getLocalPort());
+				System.out.println("ì—°ê²°ìš”ì²­ì„ ê¸°ë‹¤ë¦½ë‹ˆë‹¤.");
+
+				socket = listener.accept(); // ì—¬ê¸°ì„œ ê¸°ë‹¤ë¦°ë‹¤
+
+				System.out.println(socket.getInetAddress() + "ë¡œë¶€í„° ì—°ê²°ìš”ì²­ì´ ë“¤ì–´ì™”ìŠµë‹ˆë‹¤.");
+				System.out.println("getPort():" + socket.getPort());
+				System.out.println("getLocalPort():" + socket.getLocalPort());
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			
+
 			DataInputStream dis = null;
 			try {
 				dis = new DataInputStream(socket.getInputStream());
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-	        
+
 			int readSize;
 			int bufSize = 256;
 			byte[] byteBuf = new byte[bufSize];
-			
-			int i=0;
+
+			// int i=0;
 
 			try {
-				String rcv = dis.readUTF();		// while ÀÏ °æ¿ì EOF ¹ß»ý, Å¬¶óÀÌ¾ðÆ®¿¡¼­´Â Á¢¼ÓÀÌ ²÷±â°ÅÀÓ
-				System.out.println(rcv);
-				
-				String tmp[] = rcv.split("#");
-				System.out.println(tmp[0] + " " + tmp[1]);
+				String rcv = dis.readUTF(); // while ì¼ ê²½ìš° EOF ë°œìƒ, í´ë¼ì´ì–¸íŠ¸ì—ì„œëŠ” ì ‘ì†ì´ ëŠê¸°ê±°ìž„
+				System.out.println("received file info : " + rcv);
 
+				String tmp[] = rcv.split("#");
 				String fileName = tmp[0];
 				int fileSize = Integer.parseInt(tmp[1]);
-				
+
 				OutputStream outputStream = new FileOutputStream("./RECV/" + fileName);
-				
+
 				int len = fileSize;
-				while (len > 0) {	
-					
+				while (len > 0) {
+
 					readSize = dis.read(byteBuf, 0, Math.min(bufSize, len));
-					
+
 					len -= readSize;
-					
-		        	outputStream.write(byteBuf, 0, readSize);
-		        }
-		        outputStream.close();			
-		        dis.close();
-		        
-				i++;
+
+					outputStream.write(byteBuf, 0, readSize);
+				}
+				outputStream.close();
+				dis.close();
+
+				// i++;
 
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-	        finally {
-	            try {
-					System.out.println("finally");
+			} finally {
+				try {
 					listener.close();
+					System.out.println("finally listener.close() ");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-	        } 		
-		}
-        
+			}
+		} // while
+
 		System.out.println("program done");
 	}
 }
