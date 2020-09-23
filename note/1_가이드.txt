@@ -1,5 +1,6 @@
 ======================================================================================================
 가능한 List로 처리해라(다중정렬 사용위해)
+map을 다중정렬하려면 list로 변경후 정렬해야 한다
 
 List : 순서있음, 데이터 중복 허용
 Set : 순서없음, 데이터 중복 불가
@@ -14,12 +15,17 @@ Map : [k,v] 키값 중복불허
 - HashMap 입력순서 보장안함
 - TreeMap 키값으로 정렬
 - LinkedHashMap 입력순서 보장
+
+LinkedList는 값을 중간에 추가할 수 있다, 추가시 인덱스 자동 조정됨
+ArrayList는 값을 중간에 추가하기 힘들다
 ======================================================================================================
 
 - 실수형 정렬, 오름차순일 경우 g1, g2 반대로 입력
 Collections.sort(al, (g1, g2) -> Double.compare(g2.getSum(), g1.getSum()));  
 
 - 실수형 연산 (double, float)은 무조건 BigDecimal 사용
+- BigDecimal 사용안할 경우 무조건 double 사용해라
+
 public Grade(String str, int k, int e, int m)
 {
     strName = str;
@@ -34,7 +40,7 @@ public Grade(String str, int k, int e, int m)
     System.out.printf("%.2f", sum);
 }
 
-- 소수점 자리수 제한을 위해 printf 사용, float 연산 오류도 없다 (반올림 된다)
+- 소수점 자리수 제한을 위해 printf 사용, %f 반올림 된다
 			// %s      : ASDF
 			// %10s    : _____ASDF
 			// %-10s   : ASDF_____
@@ -54,6 +60,8 @@ class Grade
     private int English;
     private int Math; 
 }
+
+- 이클립스 코드 자동정렬 => CTRL + SHIFT + F
 
 ======================================================================================================
 @ Eclipse 자동완성(Ctrl-Space) 안될 때
