@@ -1,5 +1,3 @@
-package tct_summary;
-
 import java.util.*;
 import java.io.*;
 
@@ -91,7 +89,6 @@ class GradeCompare implements Comparator<Grade> {
 	}
 }
 
-/*
 class Grade
 {
     private String strName;
@@ -140,4 +137,3 @@ class Grade
         Math = n;
     }
 }
-*/
